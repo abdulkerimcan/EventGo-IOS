@@ -27,11 +27,11 @@ final class LoginVC: UIViewController {
     
     private var emailTextField = AuthTextView(textFieldType: .email)
     
-    private let loginBtn = AuthButton(title: "Login", hasBackground: true, fontSize: .large)
+    private let loginBtn = CustomButton(title: "Login", hasBackground: true, fontSize: .large)
     
-    private let forgetPasswordBtn = AuthButton(title: "Forget the password?", hasBackground: false, fontSize: .medium)
+    private let forgetPasswordBtn = CustomButton(title: "Forget the password?", hasBackground: false, fontSize: .medium)
     
-    private let signUpBtn = AuthButton(title: "Don't you have an account?", hasBackground: false, fontSize: .small)
+    private let signUpBtn = CustomButton(title: "Don't you have an account?", hasBackground: false, fontSize: .small)
     
     private lazy var viewModel = LoginViewModel()
     

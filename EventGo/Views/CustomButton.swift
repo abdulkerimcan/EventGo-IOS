@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AuthButton: UIButton {
+final class CustomButton: UIButton {
     
     enum FontSize {
         case large
@@ -18,7 +18,7 @@ final class AuthButton: UIButton {
     init(title: String, hasBackground: Bool = false,fontSize: FontSize) {
         super.init(frame: .zero)
         setTitle(title, for: .normal)
-        layer.cornerRadius = 10
+        layer.cornerRadius = 20
         layer.masksToBounds = true
         
         backgroundColor = hasBackground ? UIColor(named: "mainColor") : .clear

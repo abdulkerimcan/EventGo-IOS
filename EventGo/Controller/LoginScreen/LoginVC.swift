@@ -13,7 +13,10 @@ protocol LoginVCDelegate: AnyObject {
     func configureVC()
     func configureUI()
     func navigateToSignUp()
-    
+    func navigateToHomeScreen()
+    func showLoginError(error: Error?)
+    func showInvalidEmailError()
+    func showInvalidPasswordError()
 }
 
 final class LoginVC: UIViewController {
@@ -22,9 +25,9 @@ final class LoginVC: UIViewController {
     
     private let passwordTextField = AuthTextView(textFieldType: .password)
     
-    private var nameTextField = AuthTextView(textFieldType: .email)
+    private var emailTextField = AuthTextView(textFieldType: .email)
     
-    private let signInBtn = AuthButton(title: "Login", hasBackground: true, fontSize: .large)
+    private let loginBtn = AuthButton(title: "Login", hasBackground: true, fontSize: .large)
     
     private let forgetPasswordBtn = AuthButton(title: "Forget the password?", hasBackground: false, fontSize: .medium)
     
@@ -36,11 +39,18 @@ final class LoginVC: UIViewController {
         super.viewDidLoad()
         viewModel.view = self
         viewModel.viewDidLoad()
+        
     }
     
     //MARK: Selector methods
-    @objc func didTapSignInBtn() {
-        print("tapped sign in")
+    @objc func didTapLoginBtn() {
+        guard let email = emailTextField.text, let password = passwordTextField.text else {
+            return
+        }
+        viewModel.validate(email: email, password: password)
+        viewModel.login(email: email, password: password)
+        
+        
     }
     
     @objc func didTapSignUpBtn() {
@@ -52,7 +62,12 @@ final class LoginVC: UIViewController {
     }
 }
 
-extension LoginVC: LoginVCDelegate{
+extension LoginVC: LoginVCDelegate {
+    
+    func configureVC() {
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.isHidden = false
+    }
     
     func configureUI() {
         
@@ -63,8 +78,8 @@ extension LoginVC: LoginVCDelegate{
             make.height.equalTo(200)
         }
         
-        view.addSubview(nameTextField)
-        nameTextField.snp.makeConstraints { make in
+        view.addSubview(emailTextField)
+        emailTextField.snp.makeConstraints { make in
             make.top.equalTo(headerView.snp.bottom).offset(10)
             make.height.equalTo(50)
             make.left.equalTo(16)
@@ -73,15 +88,15 @@ extension LoginVC: LoginVCDelegate{
         
         view.addSubview(passwordTextField)
         passwordTextField.snp.makeConstraints { make in
-            make.top.equalTo(nameTextField.snp.bottom).offset(20)
-            make.left.right.equalTo(nameTextField)
+            make.top.equalTo(emailTextField.snp.bottom).offset(20)
+            make.left.right.equalTo(emailTextField)
             make.height.equalTo(50)
         }
         
-        view.addSubviews(signInBtn,signUpBtn,forgetPasswordBtn)
+        view.addSubviews(loginBtn,signUpBtn,forgetPasswordBtn)
         
-        signInBtn.addTarget(self, action: #selector(didTapSignInBtn) , for: .touchUpInside)
-        signInBtn.snp.makeConstraints { make in
+        loginBtn.addTarget(self, action: #selector(didTapLoginBtn) , for: .touchUpInside)
+        loginBtn.snp.makeConstraints { make in
             make.top.equalTo(passwordTextField.snp.bottom).offset(20)
             make.left.right.equalTo(passwordTextField)
             make.height.equalTo(50)
@@ -89,8 +104,8 @@ extension LoginVC: LoginVCDelegate{
         
         forgetPasswordBtn.addTarget(self, action: #selector(didTapForgotPasswordBtn), for: .touchUpInside)
         forgetPasswordBtn.snp.makeConstraints { make in
-            make.top.equalTo(signInBtn.snp.bottom).offset(10)
-            make.left.right.equalTo(signInBtn)
+            make.top.equalTo(loginBtn.snp.bottom).offset(10)
+            make.left.right.equalTo(loginBtn)
         }
         signUpBtn.addTarget(self, action: #selector(didTapSignUpBtn) , for: .touchUpInside)
         signUpBtn.snp.makeConstraints { make in
@@ -99,16 +114,33 @@ extension LoginVC: LoginVCDelegate{
         }
     }
     
+    // MARK: Navigation functions
+    func navigateToHomeScreen() {
+        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+            sceneDelegate.checkCurrentUser()
+        }
+    }
+    
     func navigateToSignUp() {
+        
         DispatchQueue.main.async {
             let signUpVC = SignUpVC()
             signUpVC.modalPresentationStyle = .fullScreen
             self.present(signUpVC, animated: true, completion: nil)
         }
+        
     }
     
-    func configureVC() {
-        view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.isHidden = false
+    //MARK: Error Alerts
+    func showLoginError(error: Error?) {
+        AlertManager.shared.showLoginErrorAlert(on: self, error: error)
+    }
+    
+    func showInvalidEmailError() {
+        AlertManager.shared.showInvalidEmailAlert(on: self)
+    }
+    
+    func showInvalidPasswordError() {
+        AlertManager.shared.showInvalidPasswordAlert(on: self)
     }
 }

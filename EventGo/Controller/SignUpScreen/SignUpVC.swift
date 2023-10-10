@@ -13,7 +13,11 @@ protocol SignUpVCDelegate: AnyObject {
     func configureVC()
     func configureUI()
     func navigateToLogin()
-    
+    func navigateToHomeScreen()
+    func showRegisterError(error: Error?)
+    func showRegisterError()
+    func showInvalidEmailError()
+    func showInvalidPasswordError()
 }
 
 final class SignUpVC: UIViewController {
@@ -37,18 +41,28 @@ final class SignUpVC: UIViewController {
     }
     
     //MARK: Selector methods
-    
     @objc func didTapLoginBtn() {
         navigateToLogin()
     }
     
     @objc func didTapSignUpBtn() {
-        print("tapped sign in")
+        
+        guard let email = emailTextField.text, let password = passwordTextField.text else {
+            return
+        }
+        
+        viewModel.validate(email: email, password: password)
+        viewModel.register(email: email, password: password)
     }
     
 }
 
 extension SignUpVC: SignUpVCDelegate{
+    
+    func configureVC() {
+        view.backgroundColor = .systemBackground
+        navigationController?.navigationBar.isHidden = false
+    }
     
     func configureUI() {
         view.addSubview(headerView)
@@ -88,16 +102,37 @@ extension SignUpVC: SignUpVCDelegate{
         }
     }
     
-    func configureVC() {
-        view.backgroundColor = .systemBackground
-        navigationController?.navigationBar.isHidden = false
+    //MARK: Navigation functions
+    func navigateToHomeScreen() {
+        
+        if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
+            sceneDelegate.checkCurrentUser()
+        }
     }
     
     func navigateToLogin() {
+        
         DispatchQueue.main.async {
             let loginVC = LoginVC()
             loginVC.modalPresentationStyle = .fullScreen
             self.present(loginVC, animated: true,completion: nil)
         }
+    }
+    
+    //MARK: Error Alerts
+    func showInvalidEmailError() {
+        AlertManager.shared.showInvalidEmailAlert(on: self)
+    }
+    
+    func showInvalidPasswordError() {
+        AlertManager.shared.showInvalidPasswordAlert(on: self)
+    }
+    
+    func showRegisterError() {
+        AlertManager.shared.showRegisterErrorAlert(on: self)
+    }
+    
+    func showRegisterError(error: Error?) {
+        AlertManager.shared.showRegisterErrorAlert(on: self, error: error)
     }
 }

@@ -13,6 +13,10 @@
 		0A0636D62AD363A0000B9825 /* AuthTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0636D52AD363A0000B9825 /* AuthTextView.swift */; };
 		0A3692D12AD5589A008D2829 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3692D02AD5589A008D2829 /* HomeVC.swift */; };
 		0A3692D42AD58776008D2829 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3692D32AD58776008D2829 /* User.swift */; };
+		0A3692D62AD5A318008D2829 /* OnboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3692D52AD5A318008D2829 /* OnboardVC.swift */; };
+		0A3692DA2AD5A5F0008D2829 /* OnboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3692D92AD5A5F0008D2829 /* OnboardViewModel.swift */; };
+		0A3692DC2AD5AA63008D2829 /* ContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3692DB2AD5AA63008D2829 /* ContainerView.swift */; };
+		0A3692DF2AD5C2C4008D2829 /* OnBoardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3692DE2AD5C2C4008D2829 /* OnBoardModel.swift */; };
 		0ABFE2D42AD2A7BB0092018E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABFE2D32AD2A7BB0092018E /* AppDelegate.swift */; };
 		0ABFE2D62AD2A7BB0092018E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABFE2D52AD2A7BB0092018E /* SceneDelegate.swift */; };
 		0ABFE2D82AD2A7BB0092018E /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABFE2D72AD2A7BB0092018E /* LoginVC.swift */; };
@@ -52,7 +56,7 @@
 		0AE5D0272AD4933400CB8E43 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE5D0262AD4933400CB8E43 /* NetworkManager.swift */; };
 		0AE5D0292AD49BD100CB8E43 /* AlertManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE5D0282AD49BD100CB8E43 /* AlertManager.swift */; };
 		0AE5D02B2AD4B5DA00CB8E43 /* ValidationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AE5D02A2AD4B5DA00CB8E43 /* ValidationManager.swift */; };
-		0AF4519B2AD4185D0057CEAF /* AuthButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF4519A2AD4185D0057CEAF /* AuthButton.swift */; };
+		0AF4519B2AD4185D0057CEAF /* CustomButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF4519A2AD4185D0057CEAF /* CustomButton.swift */; };
 		0AF4519D2AD42D250057CEAF /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF4519C2AD42D250057CEAF /* SignUpVC.swift */; };
 		0AF451A02AD42D7A0057CEAF /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AF4519F2AD42D7A0057CEAF /* SignUpViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -64,6 +68,10 @@
 		0A0636D52AD363A0000B9825 /* AuthTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthTextView.swift; sourceTree = "<group>"; };
 		0A3692D02AD5589A008D2829 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		0A3692D32AD58776008D2829 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		0A3692D52AD5A318008D2829 /* OnboardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardVC.swift; sourceTree = "<group>"; };
+		0A3692D92AD5A5F0008D2829 /* OnboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardViewModel.swift; sourceTree = "<group>"; };
+		0A3692DB2AD5AA63008D2829 /* ContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerView.swift; sourceTree = "<group>"; };
+		0A3692DE2AD5C2C4008D2829 /* OnBoardModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnBoardModel.swift; sourceTree = "<group>"; };
 		0ABFE2D02AD2A7BB0092018E /* EventGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ABFE2D32AD2A7BB0092018E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ABFE2D52AD2A7BB0092018E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -76,7 +84,7 @@
 		0AE5D0262AD4933400CB8E43 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		0AE5D0282AD49BD100CB8E43 /* AlertManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertManager.swift; sourceTree = "<group>"; };
 		0AE5D02A2AD4B5DA00CB8E43 /* ValidationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidationManager.swift; sourceTree = "<group>"; };
-		0AF4519A2AD4185D0057CEAF /* AuthButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthButton.swift; sourceTree = "<group>"; };
+		0AF4519A2AD4185D0057CEAF /* CustomButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomButton.swift; sourceTree = "<group>"; };
 		0AF4519C2AD42D250057CEAF /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		0AF4519F2AD42D7A0057CEAF /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -126,7 +134,7 @@
 			children = (
 				0A0636CD2AD359B5000B9825 /* AuthHeaderView.swift */,
 				0A0636D52AD363A0000B9825 /* AuthTextView.swift */,
-				0AF4519A2AD4185D0057CEAF /* AuthButton.swift */,
+				0AF4519A2AD4185D0057CEAF /* CustomButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -163,6 +171,17 @@
 				0A3692D32AD58776008D2829 /* User.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		0A3692D72AD5A40C008D2829 /* OnboardScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0A3692DB2AD5AA63008D2829 /* ContainerView.swift */,
+				0A3692DE2AD5C2C4008D2829 /* OnBoardModel.swift */,
+				0A3692D52AD5A318008D2829 /* OnboardVC.swift */,
+				0A3692D92AD5A5F0008D2829 /* OnboardViewModel.swift */,
+			);
+			path = OnboardScreen;
 			sourceTree = "<group>";
 		};
 		0ABFE2C72AD2A7BB0092018E = {
@@ -209,6 +228,7 @@
 		0ABFE2E92AD2AF120092018E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				0A3692D72AD5A40C008D2829 /* OnboardScreen */,
 				0A3692CF2AD5573B008D2829 /* HomeScreen */,
 				0AF4519E2AD42D2F0057CEAF /* SignUpScreen */,
 				0ABFE2EA2AD2AF2A0092018E /* LoginScreen */,
@@ -352,20 +372,24 @@
 			files = (
 				0AE5D0272AD4933400CB8E43 /* NetworkManager.swift in Sources */,
 				0ABFE2EC2AD2B3C80092018E /* LoginViewModel.swift in Sources */,
-				0AF4519B2AD4185D0057CEAF /* AuthButton.swift in Sources */,
+				0AF4519B2AD4185D0057CEAF /* CustomButton.swift in Sources */,
 				0ABFE2D82AD2A7BB0092018E /* LoginVC.swift in Sources */,
 				0A3692D42AD58776008D2829 /* User.swift in Sources */,
 				0A0636D22AD35D07000B9825 /* UIView+Ext.swift in Sources */,
 				0AE5D0292AD49BD100CB8E43 /* AlertManager.swift in Sources */,
 				0A3692D12AD5589A008D2829 /* HomeVC.swift in Sources */,
+				0A3692D62AD5A318008D2829 /* OnboardVC.swift in Sources */,
 				0AE5D02B2AD4B5DA00CB8E43 /* ValidationManager.swift in Sources */,
+				0A3692DA2AD5A5F0008D2829 /* OnboardViewModel.swift in Sources */,
 				0ABFE2D42AD2A7BB0092018E /* AppDelegate.swift in Sources */,
 				0A0636CE2AD359B5000B9825 /* AuthHeaderView.swift in Sources */,
+				0A3692DC2AD5AA63008D2829 /* ContainerView.swift in Sources */,
 				0A0636D42AD35E87000B9825 /* CGFloat+Ext.swift in Sources */,
 				0ABFE2D62AD2A7BB0092018E /* SceneDelegate.swift in Sources */,
 				0AF4519D2AD42D250057CEAF /* SignUpVC.swift in Sources */,
 				0AF451A02AD42D7A0057CEAF /* SignUpViewModel.swift in Sources */,
 				0A0636D62AD363A0000B9825 /* AuthTextView.swift in Sources */,
+				0A3692DF2AD5C2C4008D2829 /* OnBoardModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

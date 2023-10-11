@@ -28,9 +28,9 @@ final class SignUpVC: UIViewController {
     
     private let passwordTextField = AuthTextView(textFieldType: .password)
     
-    private let signUpBtn = AuthButton(title: "Sign up", hasBackground: true, fontSize: .large)
+    private let signUpBtn = CustomButton(title: "Sign up", hasBackground: true, fontSize: .large)
     
-    private let loginBtn = AuthButton(title: "Already have an account?", hasBackground: false, fontSize: .small)
+    private let loginBtn = CustomButton(title: "Already have an account?", hasBackground: false, fontSize: .small)
     
     private lazy var viewModel = SignUpViewModel()
     

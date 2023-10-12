@@ -15,7 +15,7 @@ protocol OnboardViewModelDelegate {
 }
 
 final class OnboardViewModel {
-    var view: OnboardVCDelegate?
+    weak var view: OnboardVCDelegate?
     var selectedIndex = 0
     let onboardElements: [OnBoardModel] = [OnBoardModel(title: "Exploring Upcoming and Nearby Events" ,
                                                         subtitle: "Discover Exciting Opportunities in Your Area and Beyond!",

@@ -23,6 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         DispatchQueue.main.async {
             let nav = UINavigationController(rootViewController: vc)
             nav.modalPresentationStyle = .fullScreen
+            nav.navigationBar.isHidden = true
             self.window?.rootViewController = nav
         }
     }
@@ -31,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if Auth.auth().currentUser == nil {
             goToController(on: LoginVC())
         } else {
-            goToController(on: HomeVC())
+            goToController(on: TabbarVC())
         }
     }
     

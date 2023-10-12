@@ -29,11 +29,8 @@ final class HomeVC: UIViewController {
 
 extension HomeVC: HomeVCDelegate {
     func configureVC() {
-        title = "EventGo"
-        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.setRightBarButtonItems([UIBarButtonItem(image: UIImage(systemName: "bookmark.fill"), style: .done, target: self, action: nil),
                                                UIBarButtonItem(image: UIImage(systemName: "bell.fill"), style: .done, target: self, action: nil)], animated: true)
-        
         
     }
     
@@ -103,28 +100,24 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
                     as? FeaturedCollectionViewCell else {
                 fatalError()
             }
-            cell.changeColor(color: .blue)
             return cell
         case .trending:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeScreenEventCollectionViewCell.identifier, for: indexPath)
                     as? HomeScreenEventCollectionViewCell else {
                 fatalError()
             }
-            cell.changeColor(color: .orange)
             return cell
         case .nearby:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeScreenEventCollectionViewCell.identifier, for: indexPath)
                     as? HomeScreenEventCollectionViewCell else {
                 fatalError()
             }
-            cell.changeColor(color: .green)
             return cell
         case .newest:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeScreenEventCollectionViewCell.identifier, for: indexPath)
                     as? HomeScreenEventCollectionViewCell else {
                 fatalError()
             }
-            cell.changeColor(color: .red)
             return cell
         }
     }

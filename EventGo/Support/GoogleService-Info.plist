@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyD8rJxS9FI3YfJqXsGKDe4Oc3FGGNlXqgk</string>
+	<string>AIzaSyBQrgE0njwC9gkXFlg9FhPvOjTBEZw3j7w</string>
 	<key>GCM_SENDER_ID</key>
-	<string>11016859741</string>
+	<string>597081488700</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.abdulkerimcan.EventGo</string>
 	<key>PROJECT_ID</key>
-	<string>flutter-eventgo</string>
+	<string>eventgo-ios</string>
 	<key>STORAGE_BUCKET</key>
-	<string>flutter-eventgo.appspot.com</string>
+	<string>eventgo-ios.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:11016859741:ios:33049a035543f3b4125db4</string>
+	<string>1:597081488700:ios:3da9dd4a76a6d28fceb239</string>
 </dict>
 </plist>

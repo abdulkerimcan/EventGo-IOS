@@ -57,10 +57,11 @@ extension AlertManager {
 
 //MARK: Logout Alerts
 extension AlertManager {
-    
     func showLogoutErrorAlert(on vc: UIViewController,error: Error?) {
         showBasicAlert(title: "Logout Error ", message: error?.localizedDescription, on: vc)
     }
 }
+
+
 
 

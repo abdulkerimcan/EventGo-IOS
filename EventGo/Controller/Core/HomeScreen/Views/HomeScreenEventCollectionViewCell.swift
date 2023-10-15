@@ -74,6 +74,8 @@ final class HomeScreenEventCollectionViewCell: UICollectionViewCell {
     private func setUI() {
         backgroundColor = UIColor(named: "secondaryMainColor")
         layer.cornerRadius = 20
+        layer.borderWidth = 0.5
+        layer.borderColor = UIColor(named: "mainColor")?.cgColor
         clipsToBounds = true
         addSubviews(imageView,eventNameLabel,eventCategoryLabel,locationImageView,locationLabel)
         imageView.addSubview(dateLabel)

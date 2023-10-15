@@ -8,56 +8,61 @@
 import UIKit
 import SnapKit
 
-protocol SignUpVCDelegate: AnyObject {
+protocol LoginVCDelegate: AnyObject {
     
     func configureVC()
     func configureUI()
-    func navigateToLogin()
+    func navigateToSignUp()
     func navigateToHomeScreen()
-    func showRegisterError(error: Error?)
-    func showRegisterError()
+    func showLoginError(error: Error?)
     func showInvalidEmailError()
     func showInvalidPasswordError()
 }
 
-final class SignUpVC: UIViewController {
+final class LoginVC: UIViewController {
     
-    private let headerView = AuthHeaderView(title: "Sign Up", subtitle: "Sign up for free")
+    private let headerView = AuthHeaderView(title: "Sign In", subtitle: "Login to your account")
     
-    private var emailTextField = AuthTextView(textFieldType: .email)
+    private let passwordTextField = AuthTextField(textFieldType: .password)
     
-    private let passwordTextField = AuthTextView(textFieldType: .password)
+    private var emailTextField = AuthTextField(textFieldType: .email)
     
-    private let signUpBtn = CustomButton(title: "Sign up", hasBackground: true, fontSize: .large)
+    private let loginBtn = CustomButton(title: "Login", hasBackground: true, fontSize: .large)
     
-    private let loginBtn = CustomButton(title: "Already have an account?", hasBackground: false, fontSize: .small)
+    private let forgetPasswordBtn = CustomButton(title: "Forget the password?", hasBackground: false, fontSize: .medium)
     
-    private lazy var viewModel = SignUpViewModel()
+    private let signUpBtn = CustomButton(title: "Don't you have an account?", hasBackground: false, fontSize: .small)
+    
+    private lazy var viewModel = LoginViewModel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.view = self
         viewModel.viewDidLoad()
+        
     }
     
     //MARK: Selector methods
     @objc func didTapLoginBtn() {
-        navigateToLogin()
-    }
-    
-    @objc func didTapSignUpBtn() {
-        
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             return
         }
-        
         viewModel.validate(email: email, password: password)
-        viewModel.register(email: email, password: password)
+        viewModel.login(email: email, password: password)
+        
+        
     }
     
+    @objc func didTapSignUpBtn() {
+        navigateToSignUp()
+    }
+    
+    @objc func didTapForgotPasswordBtn() {
+        print("tapped forgot password")
+    }
 }
 
-extension SignUpVC: SignUpVCDelegate{
+extension LoginVC: LoginVCDelegate {
     
     func configureVC() {
         view.backgroundColor = .systemBackground
@@ -65,6 +70,7 @@ extension SignUpVC: SignUpVCDelegate{
     }
     
     func configureUI() {
+        
         view.addSubview(headerView)
         headerView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
@@ -87,52 +93,54 @@ extension SignUpVC: SignUpVCDelegate{
             make.height.equalTo(50)
         }
         
-        view.addSubviews(loginBtn,signUpBtn)
-        signUpBtn.addTarget(self, action: #selector(didTapSignUpBtn), for: .touchUpInside)
-        signUpBtn.snp.makeConstraints { make in
+        view.addSubviews(loginBtn,signUpBtn,forgetPasswordBtn)
+        
+        loginBtn.addTarget(self, action: #selector(didTapLoginBtn) , for: .touchUpInside)
+        loginBtn.snp.makeConstraints { make in
             make.top.equalTo(passwordTextField.snp.bottom).offset(20)
             make.left.right.equalTo(passwordTextField)
             make.height.equalTo(50)
         }
         
-        loginBtn.addTarget(self, action: #selector(didTapLoginBtn), for: .touchUpInside)
-        loginBtn.snp.makeConstraints { make in
+        forgetPasswordBtn.addTarget(self, action: #selector(didTapForgotPasswordBtn), for: .touchUpInside)
+        forgetPasswordBtn.snp.makeConstraints { make in
+            make.top.equalTo(loginBtn.snp.bottom).offset(10)
+            make.left.right.equalTo(loginBtn)
+        }
+        signUpBtn.addTarget(self, action: #selector(didTapSignUpBtn) , for: .touchUpInside)
+        signUpBtn.snp.makeConstraints { make in
             make.bottom.equalToSuperview().offset(-50)
-            make.left.right.equalTo(signUpBtn)
+            make.left.right.equalTo(forgetPasswordBtn)
         }
     }
     
-    //MARK: Navigation functions
+    // MARK: Navigation functions
     func navigateToHomeScreen() {
-        
         if let sceneDelegate = self.view.window?.windowScene?.delegate as? SceneDelegate {
             sceneDelegate.checkCurrentUser()
         }
     }
     
-    func navigateToLogin() {
+    func navigateToSignUp() {
         
         DispatchQueue.main.async {
-            let loginVC = LoginVC()
-            loginVC.modalPresentationStyle = .fullScreen
-            self.present(loginVC, animated: true,completion: nil)
+            let signUpVC = SignUpVC()
+            signUpVC.modalPresentationStyle = .fullScreen
+            self.present(signUpVC, animated: true, completion: nil)
         }
+        
     }
     
     //MARK: Error Alerts
+    func showLoginError(error: Error?) {
+        AlertManager.shared.showLoginErrorAlert(on: self, error: error)
+    }
+    
     func showInvalidEmailError() {
         AlertManager.shared.showInvalidEmailAlert(on: self)
     }
     
     func showInvalidPasswordError() {
         AlertManager.shared.showInvalidPasswordAlert(on: self)
-    }
-    
-    func showRegisterError() {
-        AlertManager.shared.showRegisterErrorAlert(on: self)
-    }
-    
-    func showRegisterError(error: Error?) {
-        AlertManager.shared.showRegisterErrorAlert(on: self, error: error)
     }
 }

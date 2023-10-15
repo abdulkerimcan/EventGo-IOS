@@ -44,6 +44,8 @@ final class FeaturedCollectionViewCell: UICollectionViewCell {
     private func setUI() {
         layer.cornerRadius = 20
         clipsToBounds = true
+        layer.borderWidth = 0.5
+        layer.borderColor = UIColor(named: "mainColor")?.cgColor
         
         addSubviews(imageView)
         imageView.addSubview(eventNameLabel)

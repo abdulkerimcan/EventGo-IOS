@@ -12,7 +12,7 @@ final class TabbarVC: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = UIColor(named: "secondaryMainColor")
         setTabs()
         
         
@@ -26,12 +26,14 @@ final class TabbarVC: UITabBarController {
 }
 
 private extension TabbarVC {
+    
     func createHomeVC() -> UINavigationController {
         let homeVC = HomeVC()
         let nav = UINavigationController(rootViewController: homeVC)
         nav.tabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "house.fill"), tag: 1)
         return nav
     }
+    
     func createEventListVC() -> UINavigationController {
         let eventListVC = EventListVC()
         let nav = UINavigationController(rootViewController: eventListVC)

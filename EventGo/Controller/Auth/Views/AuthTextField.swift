@@ -7,9 +7,8 @@
 
 import UIKit
 
-final class AuthTextView: UITextField {
-    private let textFieldType: TextFieldType
-    
+final class AuthTextField: UITextField {
+    private var textFieldType: TextFieldType
     enum TextFieldType: String {
         case email
         case password
@@ -32,7 +31,6 @@ final class AuthTextView: UITextField {
         returnKeyType = .done
         autocorrectionType = .no
         autocapitalizationType = .none
-        
         let paddingView = UIView(frame: CGRectMake(0, 0, 15, self.frame.height))
         leftView = paddingView
         leftViewMode = .always
@@ -47,6 +45,5 @@ final class AuthTextView: UITextField {
             textContentType = .oneTimeCode
             isSecureTextEntry = true
         }
-        
     }
 }

@@ -39,6 +39,7 @@ extension HomeVC: HomeVCDelegate {
                                           collectionViewLayout: createHomeCompositionalLayout(viewModel: viewModel))
         
         view.addSubview(collectionView)
+        collectionView.backgroundColor = UIColor(named: "secondaryMainColor")
         collectionView.dataSource = self
         collectionView.delegate = self
         

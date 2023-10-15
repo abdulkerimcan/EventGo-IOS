@@ -8,11 +8,13 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseStorage
 import FirebaseFirestoreSwift
 
 final class NetworkManager {
     static let shared = NetworkManager()
     private let db = Firestore.firestore()
+    private let ref = Storage.storage().reference()
     private init() {}
     
 }
@@ -66,5 +68,50 @@ extension NetworkManager {
         } catch let error{
             completion(error)
         }
+    }
+    
+    func postEvent(event: Event,data: Data?,completion: @escaping (Error?) -> ()){
+        let postImageRef = ref.child("postImages/\(event.id).jpeg")
+        
+        guard let data = data else {
+            return
+        }
+        
+        let uploadTask = postImageRef.putData(data, metadata: nil) { storageData, error in
+            
+            if let error = error {
+                completion(error)
+                return
+            }
+            
+            postImageRef.downloadURL { url, error in
+                if let error = error {
+                    completion(error)
+                    return
+                }
+                guard let url = url else {
+                    return
+                }
+                
+                let newEvent = Event(id: event.id,
+                                     ownerId: event.ownerId,
+                                     image: url.absoluteString,
+                                     name: event.name,
+                                     type: event.type,
+                                     date: event.date,
+                                     time: event.time,
+                                     price: event.price,
+                                     location: event.location,
+                                     latitude: event.latitude,
+                                     longitude: event.longitude)
+                do {
+                    try self.db.collection("posts").document(newEvent.id).setData(from: newEvent)
+                    completion(nil)
+                } catch let error {
+                    completion(error)
+                }
+            }
+        }
+        uploadTask.resume()
     }
 }

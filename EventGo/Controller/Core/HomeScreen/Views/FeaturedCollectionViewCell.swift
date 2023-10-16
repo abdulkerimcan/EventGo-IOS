@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class FeaturedCollectionViewCell: UICollectionViewCell {
     
@@ -37,6 +38,11 @@ final class FeaturedCollectionViewCell: UICollectionViewCell {
         setUI()
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+    }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -58,6 +64,13 @@ final class FeaturedCollectionViewCell: UICollectionViewCell {
             make.bottom.equalToSuperview().offset(-30)
             make.left.equalToSuperview().offset(20)
         }
+        
+    }
+    
+    func configureCell(event: Event) {
+        let url = URL(string: event.image ?? "")
+        imageView.kf.setImage(with: url)
+        eventNameLabel.text = event.name
         
     }
 }

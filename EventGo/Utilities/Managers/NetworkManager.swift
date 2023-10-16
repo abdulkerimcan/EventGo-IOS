@@ -17,6 +17,9 @@ final class NetworkManager {
     private let ref = Storage.storage().reference()
     private init() {}
     
+    enum errorTypes: Error {
+        case documentNotFound
+    }
 }
 
 extension NetworkManager {
@@ -68,6 +71,31 @@ extension NetworkManager {
         } catch let error{
             completion(error)
         }
+    }
+    
+    func fetchEvents(completion: @escaping (Result<[Event]?,Error>) -> ()) {
+        var events: [Event] = []
+        db.collection("posts").getDocuments { snp, error in
+            
+            if let error = error {
+                completion(.failure(error))
+            }
+            guard let snp = snp else {
+                completion(.failure(errorTypes.documentNotFound))
+                return
+            }
+            
+            for document in snp.documents {
+                do {
+                    let event = try document.data(as: Event.self)
+                    events.append(event)
+                } catch let error {
+                    completion(.failure(error))
+                }
+            }
+            completion(.success(events))
+        }
+        
     }
     
     func postEvent(event: Event,data: Data?,completion: @escaping (Error?) -> ()){

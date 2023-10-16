@@ -11,6 +11,8 @@ import SnapKit
 protocol HomeVCDelegate: AnyObject {
     func configureCollectionView()
     func configureVC()
+    func reloadData()
+
 }
 
 final class HomeVC: UIViewController {
@@ -28,7 +30,15 @@ final class HomeVC: UIViewController {
 }
 
 extension HomeVC: HomeVCDelegate {
+    
+    func reloadData() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
+    }
+    
     func configureVC() {
+
         navigationItem.setRightBarButtonItems([UIBarButtonItem(image: UIImage(systemName: "bookmark.fill"), style: .done, target: self, action: nil),
                                                UIBarButtonItem(image: UIImage(systemName: "bell.fill"), style: .done, target: self, action: nil)], animated: true)
         
@@ -37,6 +47,7 @@ extension HomeVC: HomeVCDelegate {
     func configureCollectionView() {
         collectionView = UICollectionView(frame: .zero,
                                           collectionViewLayout: createHomeCompositionalLayout(viewModel: viewModel))
+        
         
         view.addSubview(collectionView)
         collectionView.backgroundColor = UIColor(named: "secondaryMainColor")
@@ -61,34 +72,36 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         
         let sectionType = viewModel.sections[indexPath.section]
         
-        switch sectionType {
-        case .featured:
-            header.setTitle(title: "Featured")
-        case .trending:
-            header.setTitle(title: "Trending")
-        case .nearby:
-            header.setTitle(title: "Nearby Your Location")
-        case .newest:
-            header.setTitle(title: "Newest Event")
-        }
+        header.setTitle(title: sectionType.rawValue)
         return header
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        viewModel.sections.count
+        if viewModel.events.isEmpty {
+            return 0
+        }
+        return viewModel.sections.count
     }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let section = viewModel.sections[section]
         
         switch section {
         case .featured:
-            return 10
-        case .trending:
-            return 2
-        case .nearby:
-            return 10
+            return viewModel.featuredEvents.count
+        case .concert:
+            return viewModel.getFilteredEvents(eventType: .concert).count
+        case .sport:
+            return viewModel.getFilteredEvents(eventType: .sport).count
+        case .theatr:
+            return viewModel.getFilteredEvents(eventType: .theatr).count
+        case .party:
+            return viewModel.getFilteredEvents(eventType: .party).count
+        case .opera:
+            return viewModel.getFilteredEvents(eventType: .opera).count
         case .newest:
-            return 5
+            return viewModel.events.count
+            
         }
     }
     
@@ -96,29 +109,28 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         let section = viewModel.sections[indexPath.section]
         
         switch section {
+            
         case .featured:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedCollectionViewCell.identifier, for: indexPath)
                     as? FeaturedCollectionViewCell else {
                 fatalError()
             }
+            cell.configureCell(event: viewModel.featuredEvents[indexPath.item])
             return cell
-        case .trending:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeScreenEventCollectionViewCell.identifier, for: indexPath)
-                    as? HomeScreenEventCollectionViewCell else {
-                fatalError()
-            }
-            return cell
-        case .nearby:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeScreenEventCollectionViewCell.identifier, for: indexPath)
-                    as? HomeScreenEventCollectionViewCell else {
-                fatalError()
-            }
-            return cell
+            
         case .newest:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeScreenEventCollectionViewCell.identifier, for: indexPath)
                     as? HomeScreenEventCollectionViewCell else {
                 fatalError()
             }
+            cell.configureCell(event: viewModel.events[indexPath.item])
+            return cell
+        default:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeScreenEventCollectionViewCell.identifier, for: indexPath)
+                    as? HomeScreenEventCollectionViewCell else {
+                fatalError()
+            }
+            cell.configureCell(event: viewModel.getFilteredEvents(eventType: section)[indexPath.item])
             return cell
         }
     }

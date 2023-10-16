@@ -26,7 +26,7 @@ protocol CreateEventViewModelDelegate {
 
 final class CreateEventViewModel {
     weak var view: CreateEventVCDelegate?
-    var eventTypes: [EventType] = [.opera,.concert,.party,.sport,.theatr]
+    var eventTypes: [EventSection] = [.opera,.concert,.party,.sport,.theatr]
 }
 
 extension CreateEventViewModel: CreateEventViewModelDelegate {

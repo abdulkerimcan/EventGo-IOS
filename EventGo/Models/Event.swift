@@ -10,7 +10,7 @@ import Foundation
 struct Event: Codable {
     let id: String
     let ownerId: String?
-    var image: String?
+    let image: String?
     let name: String
     let type: String
     let date: String

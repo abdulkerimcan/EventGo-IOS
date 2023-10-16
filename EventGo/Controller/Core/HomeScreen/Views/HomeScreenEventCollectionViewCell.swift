@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 final class HomeScreenEventCollectionViewCell: UICollectionViewCell {
     
@@ -70,6 +71,10 @@ final class HomeScreenEventCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        imageView.image = nil
+    }
 
     private func setUI() {
         backgroundColor = UIColor(named: "secondaryMainColor")
@@ -113,5 +118,14 @@ final class HomeScreenEventCollectionViewCell: UICollectionViewCell {
             make.left.equalTo(locationImageView.snp.right).offset(5)
             make.centerY.equalTo(locationImageView)
         }
+    }
+    
+    func configureCell(event: Event) {
+        dateLabel.text = event.date
+        eventNameLabel.text = event.name
+        eventCategoryLabel.text = event.type
+        locationLabel.text = event.location
+        let url = URL(string: event.image ?? "")
+        imageView.kf.setImage(with: url)
     }
 }

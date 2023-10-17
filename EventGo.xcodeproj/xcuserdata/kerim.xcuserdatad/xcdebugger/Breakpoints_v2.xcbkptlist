@@ -276,5 +276,69 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9B647E4C-07E2-444A-A2AF-C6EEB7AB468D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EventGo/Controller/Core/TabbarVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "17"
+            endingLineNumber = "17"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9B647E4C-07E2-444A-A2AF-C6EEB7AB468D - 33a2235a7b297522"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EventGo.TabbarVC.viewDidLoad() -&gt; ()"
+                  moduleName = "EventGo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kerim/Desktop/IOS%20Development/EventGo-IOS/EventGo/Controller/Core/TabbarVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "17"
+                  endingLineNumber = "17"
+                  offsetFromSymbolStart = "380">
+               </Location>
+               <Location
+                  uuid = "9B647E4C-07E2-444A-A2AF-C6EEB7AB468D - 33a2235a7b297505"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EventGo.TabbarVC.viewDidLoad() -&gt; ()"
+                  moduleName = "EventGo"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/kerim/Desktop/IOS%20Development/EventGo-IOS/EventGo/Controller/Core/TabbarVC.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "18"
+                  endingLineNumber = "18"
+                  offsetFromSymbolStart = "380">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "22039CC5-D518-4CF4-9749-0100D21AA07B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EventGo/Controller/Core/TabbarVC.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

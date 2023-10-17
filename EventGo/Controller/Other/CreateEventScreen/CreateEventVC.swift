@@ -197,6 +197,7 @@ final class CreateEventVC: UIViewController {
             AlertManager.shared.showBasicAlert(title: "Empty Event Location", message: "Event Location cannot be empty", on: self)
             return
         }
+        
         viewModel.postEvent(eventNameText: eventNameText,
                             eventTypeText: eventTypeText,
                             eventDateText: eventDateText,
@@ -205,7 +206,6 @@ final class CreateEventVC: UIViewController {
                             eventLocationText: eventLocationText,
                             eventCoordinateTuple: coordinateTuple,
                             imageData: coverImageView.jpegData(compressionQuality: 0.5))
-        
         
     }
     

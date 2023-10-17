@@ -10,7 +10,6 @@ import iOSDropDown
 
 class CustomDropDown: DropDown {
 
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()

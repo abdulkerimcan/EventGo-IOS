@@ -14,9 +14,9 @@
             filePath = "EventGo/Controller/Other/CreateEventScreen/CreateEventViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "84"
-            endingLineNumber = "84"
-            landmarkName = "postEvent(eventNameText:eventTypeText:eventDateText:eventTimeText:eventPriceText:eventLocationText:eventCoordinateTuple:imageData:)"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "postEvent(eventNameText:eventType:eventDateText:eventTimeText:eventPriceText:eventLocationText:eventCoordinateTuple:imageData:)"
             landmarkType = "7">
             <Locations>
                <Location

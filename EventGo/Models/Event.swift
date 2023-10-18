@@ -12,7 +12,7 @@ struct Event: Codable {
     let ownerId: String?
     let image: String?
     let name: String
-    let type: String
+    let type: EventSection
     let date: String
     let time: String
     let price: String

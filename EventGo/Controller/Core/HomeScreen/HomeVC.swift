@@ -12,7 +12,7 @@ protocol HomeVCDelegate: AnyObject {
     func configureCollectionView()
     func configureVC()
     func reloadData()
-
+    
 }
 
 final class HomeVC: UIViewController {
@@ -38,7 +38,7 @@ extension HomeVC: HomeVCDelegate {
     }
     
     func configureVC() {
-
+        
         navigationItem.setRightBarButtonItems([UIBarButtonItem(image: UIImage(systemName: "bookmark.fill"), style: .done, target: self, action: nil),
                                                UIBarButtonItem(image: UIImage(systemName: "bell.fill"), style: .done, target: self, action: nil)], animated: true)
         
@@ -97,8 +97,6 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
             return viewModel.getFilteredEvents(eventType: .theatr).count
         case .party:
             return viewModel.getFilteredEvents(eventType: .party).count
-        case .opera:
-            return viewModel.getFilteredEvents(eventType: .opera).count
         case .newest:
             return viewModel.events.count
             
@@ -111,26 +109,33 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         switch section {
             
         case .featured:
+            
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedCollectionViewCell.identifier, for: indexPath)
                     as? FeaturedCollectionViewCell else {
                 fatalError()
             }
             cell.configureCell(event: viewModel.featuredEvents[indexPath.item])
+            
             return cell
             
         case .newest:
+            
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeScreenEventCollectionViewCell.identifier, for: indexPath)
                     as? HomeScreenEventCollectionViewCell else {
                 fatalError()
             }
             cell.configureCell(event: viewModel.events[indexPath.item])
+            
             return cell
+            
         default:
+            
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeScreenEventCollectionViewCell.identifier, for: indexPath)
                     as? HomeScreenEventCollectionViewCell else {
                 fatalError()
             }
             cell.configureCell(event: viewModel.getFilteredEvents(eventType: section)[indexPath.item])
+            
             return cell
         }
     }

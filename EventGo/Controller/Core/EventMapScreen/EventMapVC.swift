@@ -8,23 +8,12 @@
 import UIKit
 import MapKit
 import SnapKit
+import Kingfisher
 
-class AnnotationPin: NSObject, MKAnnotation {
-    var event: Event
-    var title: String?
-    var subtitle: String?
-    var coordinate: CLLocationCoordinate2D
-    init(event: Event, coordinate: CLLocationCoordinate2D) {
-        self.event = event
-        self.title = event.name
-        self.subtitle = event.date
-        self.coordinate = coordinate
-    }
-    
-}
 protocol EventMapVCDelegate: AnyObject {
     func configureMapView()
     func configureEventAnnotations(events: [Event])
+    func configureBottomSheet(with event: Event)
 }
 
 final class EventMapVC: UIViewController {
@@ -33,6 +22,7 @@ final class EventMapVC: UIViewController {
         mapview.showsUserLocation = true
         return mapview
     }()
+    private var coverView: CoverView!
     private var locationManager: CLLocationManager?
     private lazy var viewModel = EventMapViewModel()
     
@@ -45,12 +35,25 @@ final class EventMapVC: UIViewController {
 }
 
 extension EventMapVC: EventMapVCDelegate {
+    
+    func configureBottomSheet(with event: Event) {
+        let vc = MapBottomSheetVC(event: event)
+        
+        let nav = UINavigationController(rootViewController: vc)
+        
+        if let sheet = nav.sheetPresentationController {
+            sheet.detents = [.custom(resolver: { context in
+                0.3 * context.maximumDetentValue
+            })]
+        }
+        navigationController?.present(nav, animated: true)
+    }
+    
     func configureEventAnnotations(events: [Event]) {
         for event in events {
             
             let eventCoordinate = CLLocationCoordinate2D(latitude: event.latitude, longitude: event.longitude)
-            let pin = AnnotationPin(event: event, coordinate: eventCoordinate)
-            
+            let pin = CustomAnnotationPin(event: event, coordinate: eventCoordinate)
             mapview.addAnnotation(pin)
         }
         
@@ -102,34 +105,39 @@ extension EventMapVC: MKMapViewDelegate {
         guard !(annotation is MKUserLocation) else {
             return nil
         }
-        guard let annotation = annotation as? AnnotationPin else {
-            print("asasa")
+        
+        let annotationview = MKAnnotationView(annotation: annotation, reuseIdentifier: "custom")
+        annotationview.rightCalloutAccessoryView = UIButton(type: .custom)
+        annotationview.tintColor = .red
+        
+        guard let annotation = annotationview.annotation as? CustomAnnotationPin else {
             return nil
         }
-        var annotationview = mapView.dequeueReusableAnnotationView(withIdentifier: "custom")
-        
-        if annotationview == nil {
-            annotationview = MKAnnotationView(annotation: annotation, reuseIdentifier: "custom")
-            annotationview?.rightCalloutAccessoryView = UIButton(type: .custom)
-            annotationview?.canShowCallout = true
-        } else {
-            annotationview?.annotation = annotation
-        }
-
-        switch annotationview?.annotation?.title {
-        case "12aas":
-            annotationview?.image = UIImage(systemName: "bell.fill")
-            annotationview?.tintColor = .red
-        case "Basketball":
-            annotationview?.image = UIImage(systemName: "bell")
+        switch annotation.event.type {
+            
+        case .concert:
+            annotationview.setPin(image: UIImage(systemName: "music.note")!,with: .red)
+        case .sport:
+            let image = UIImage(systemName: "soccerball.inverse")
+            annotationview.setPin(image: image!,with: .white)
+        case .theatr:
+            let image = UIImage(systemName: "theatermasks.fill")
+            annotationview.setPin(image: image!,with: .white)
+        case .party:
+            let image = UIImage(systemName: "party.popper.fill")
+            annotationview.setPin(image: image!,with: .cyan)
         default:
-            annotationview?.image = UIImage(systemName: "plus")
+            break
         }
+        annotationview.transform = .init(scaleX: 1.5, y: 1.5)
         return annotationview
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        
+        guard let annotation = view.annotation as? CustomAnnotationPin else {
+            return
+        }
+        configureBottomSheet(with: annotation.event)
     }
 }
 

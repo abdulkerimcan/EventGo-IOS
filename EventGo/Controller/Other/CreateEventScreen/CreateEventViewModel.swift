@@ -15,7 +15,7 @@ protocol CreateEventViewModelDelegate {
     func didTapTimeDoneBtn(date: Date) -> String
     func viewDidLoad()
     func postEvent(eventNameText: String,
-                   eventTypeText: String,
+                   eventType: EventSection,
                    eventDateText: String,
                    eventTimeText: String,
                    eventPriceText: String,
@@ -25,8 +25,10 @@ protocol CreateEventViewModelDelegate {
 }
 
 final class CreateEventViewModel {
+    
     weak var view: CreateEventVCDelegate?
-    var eventTypes: [EventSection] = [.opera,.concert,.party,.sport,.theatr]
+    var eventTypes: [EventSection] = [.concert,.party,.sport,.theatr]
+    
 }
 
 extension CreateEventViewModel: CreateEventViewModelDelegate {
@@ -60,7 +62,7 @@ extension CreateEventViewModel: CreateEventViewModelDelegate {
     
     func postEvent(
         eventNameText: String,
-        eventTypeText: String,
+        eventType: EventSection,
         eventDateText: String,
         eventTimeText: String,
         eventPriceText: String,
@@ -73,7 +75,7 @@ extension CreateEventViewModel: CreateEventViewModelDelegate {
                               ownerId: Auth.auth().currentUser?.uid,
                               image: imageData?.base64EncodedString(),
                               name: eventNameText,
-                              type: eventTypeText,
+                              type: eventType,
                               date: eventDateText,
                               time: eventTimeText,
                               price: eventPriceText,

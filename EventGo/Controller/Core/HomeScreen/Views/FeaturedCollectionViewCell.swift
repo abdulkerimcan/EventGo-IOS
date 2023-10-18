@@ -13,14 +13,17 @@ final class FeaturedCollectionViewCell: UICollectionViewCell {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
+        
         imageView.image = UIImage(named: "onboard1")
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
+        
         return imageView
     }()
     
     private let eventNameLabel: UILabel = {
         let label = UILabel()
+        
         label.font = .systemFont(ofSize: 24, weight: .bold)
         label.clipsToBounds = true
         label.text = "International Concert"

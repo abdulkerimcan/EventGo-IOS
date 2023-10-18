@@ -55,12 +55,7 @@ final class CreateEventVC: UIViewController {
     
     private let eventNameTF = CustomTextField(placeHolder: "Event Name")
     
-    private let dropDown: CustomDropDown = {
-        let dropdown = CustomDropDown()
-        dropdown.optionArray = ["Music","Theatr","Cinema","Concert"]
-        dropdown.placeholder = "Select Type"
-        return dropdown
-    }()
+    private var dropDown: CustomDropDown!
     
     private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
@@ -94,8 +89,11 @@ final class CreateEventVC: UIViewController {
     private let createEventBtn = CustomButton(title: "Create New Event & Publish", hasBackground: true, fontSize: .medium)
     
     private var coordinateTuple = (latitude: 0.0,longitude: 0.0)
+    
     private var locationManager: CLLocationManager?
+    
     private var geocoder = CLGeocoder()
+    
     private lazy var viewModel = CreateEventViewModel()
     
     override func viewDidLoad() {
@@ -157,22 +155,23 @@ final class CreateEventVC: UIViewController {
     }
     
     @objc private func didTapcreateEventBtn() {
-       guard let coverImageView = coverView.coverImageView.image else {
-           AlertManager.shared.showBasicAlert(title: "Empty Event image", message: "Event image cannot be empty", on: self)
-           return
-       }
-                
+        guard let coverImageView = coverView.coverImageView.image else {
+            AlertManager.shared.showBasicAlert(title: "Empty Event image", message: "Event image cannot be empty", on: self)
+            return
+        }
+        
         guard let eventNameText = eventNameTF.text,
               !eventNameText.isEmpty else {
             AlertManager.shared.showBasicAlert(title: "Empty Event Name", message: "Event Name cannot be empty", on: self)
             return
         }
         
-        guard let eventTypeText = dropDown.text,
-              !eventTypeText.isEmpty else {
+        guard let dropDownSelectedIndex = dropDown.selectedIndex else {
             AlertManager.shared.showBasicAlert(title: "Empty Event Type", message: "Event Type cannot be empty", on: self)
             return
         }
+        
+        let eventType = dropDown.sectionsArray[dropDownSelectedIndex]
         
         guard let eventDateText = eventDateTF.text,
               !eventDateText.isEmpty else {
@@ -199,7 +198,7 @@ final class CreateEventVC: UIViewController {
         }
         
         viewModel.postEvent(eventNameText: eventNameText,
-                            eventTypeText: eventTypeText,
+                            eventType: eventType,
                             eventDateText: eventDateText,
                             eventTimeText: eventTimeText,
                             eventPriceText: eventPriceText,
@@ -261,7 +260,7 @@ extension CreateEventVC: CreateEventVCDelegate {
     
     func configureEventName() {
         stackview.addArrangedSubview(eventNameTF)
-
+        
         eventNameTF.snp.makeConstraints { make in
             make.top.equalTo(eventDetailsLabel.snp.bottom).offset(20)
             make.left.right.equalTo(divider)
@@ -270,8 +269,8 @@ extension CreateEventVC: CreateEventVCDelegate {
     }
     
     func configureEventType() {
+        dropDown = CustomDropDown(sectionsArray: viewModel.eventTypes)
         stackview.addArrangedSubview(dropDown)
-        dropDown.isSearchEnable = false
         
         dropDown.snp.makeConstraints { make in
             make.top.equalTo(eventNameTF.snp.bottom).offset(20)
@@ -280,9 +279,6 @@ extension CreateEventVC: CreateEventVCDelegate {
             make.width.equalTo(CGFloat.dWidth)
         }
         
-        dropDown.optionArray = viewModel.eventTypes.compactMap({ EventType in
-            EventType.rawValue
-        })
         
         dropDown.didSelect { selectedText, index, id in
             self.dropDown.text = selectedText
@@ -429,9 +425,11 @@ extension CreateEventVC: CLLocationManagerDelegate {
             mapview.showsUserLocation = false
         }
     }
+    
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
+    
 }
 
 extension CreateEventVC: UITextFieldDelegate {

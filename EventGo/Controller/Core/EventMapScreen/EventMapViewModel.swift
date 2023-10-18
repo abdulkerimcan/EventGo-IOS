@@ -19,6 +19,7 @@ final class EventMapViewModel {
 }
 
 extension EventMapViewModel: EventMapViewModelDelegate {
+    
     func fetchEvents() {
         NetworkManager.shared.fetchEvents { result in
             switch result {

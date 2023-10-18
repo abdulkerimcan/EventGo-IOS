@@ -7,12 +7,12 @@
 
 import Foundation
 
-enum EventSection: String {
+enum EventSection: String, Codable {
     case featured = "Featured"
     case concert = "Concert"
     case sport = "Sport"
     case theatr = "Theatr"
     case party = "Party"
-    case opera = "Opera"
     case newest = "Newest Events"
 }
+

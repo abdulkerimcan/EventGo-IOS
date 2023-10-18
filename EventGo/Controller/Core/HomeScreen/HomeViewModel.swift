@@ -15,7 +15,7 @@ protocol HomeViewModelDelegate {
 
 final class HomeViewModel {
     weak var view: HomeVCDelegate?
-    var sections: [EventSection] = [.featured,.concert,.sport,.theatr,.party,.opera,.newest]
+    var sections: [EventSection] = [.featured,.concert,.sport,.theatr,.party,.newest]
     var events: [Event] = []
     var featuredEvents: [Event] = []
 }
@@ -49,7 +49,8 @@ extension HomeViewModel: HomeViewModelDelegate {
     
     func getFilteredEvents(eventType: EventSection) -> [Event] {
         let filteredEvents = events.filter { event in
-            if event.type.elementsEqual(eventType.rawValue) {
+            
+            if event.type.rawValue.elementsEqual(eventType.rawValue) {
                 return true
             }
             return false

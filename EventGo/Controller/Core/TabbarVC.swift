@@ -15,7 +15,6 @@ final class TabbarVC: UITabBarController {
         view.backgroundColor = UIColor(named: "secondaryMainColor")
         setTabs()
         
-        
     }
     
     private func setTabs() {

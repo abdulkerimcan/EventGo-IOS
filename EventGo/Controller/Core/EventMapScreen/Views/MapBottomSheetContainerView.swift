@@ -1,15 +1,15 @@
 //
-//  HomeScreenEventCollectionViewCell.swift
+//  MapBottomSheetContainerView.swift
 //  EventGo
 //
-//  Created by Abdulkerim Can on 11.10.2023.
+//  Created by Abdulkerim Can on 18.10.2023.
 //
 
 import UIKit
 import SnapKit
 import Kingfisher
 
-final class HomeScreenEventCollectionViewCell: UICollectionViewCell {
+final class MapBottomSheetContainerView: UIView {
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -33,7 +33,7 @@ final class HomeScreenEventCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    private let eventCategoryLabel: UILabel = {
+    private let eventTypeLabel: UILabel = {
         let label = UILabel()
         label.layer.borderWidth = 1
         label.layer.borderColor = UIColor(named: "mainColor")?.cgColor
@@ -57,7 +57,6 @@ final class HomeScreenEventCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    static let identifier = "HomeScreenEventCollectionViewCell"
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
@@ -67,18 +66,18 @@ final class HomeScreenEventCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        imageView.image = nil
-    }
-    
     private func setUI() {
-        backgroundColor = UIColor(named: "secondaryMainColor")
-        layer.cornerRadius = 20
-        layer.borderWidth = 0.5
-        layer.borderColor = UIColor(named: "mainColor")?.cgColor
         clipsToBounds = true
-        addSubviews(imageView,eventNameLabel,eventCategoryLabel,locationImageView,locationLabel)
+        layer.cornerRadius = 10
+        layer.borderWidth = 0.5
+        layer.borderColor = UIColor.tertiarySystemBackground.cgColor
+        
+        addSubviews(imageView,
+                    eventNameLabel,
+                    eventTypeLabel,
+                    locationLabel,
+                    locationImageView,
+                    dateLabel)
         imageView.addSubview(dateLabel)
         
         dateLabel.snp.makeConstraints { make in
@@ -87,40 +86,40 @@ final class HomeScreenEventCollectionViewCell: UICollectionViewCell {
         }
         
         imageView.snp.makeConstraints { make in
-            make.top.left.right.equalToSuperview()
-            make.height.equalTo(self.layer.frame.height * 0.6)
-            make.width.equalToSuperview()
+            make.width.equalTo(CGFloat.dWidth * 0.4)
+            make.top.left.bottom.equalToSuperview()
         }
         
         eventNameLabel.snp.makeConstraints { make in
-            make.top.equalTo(imageView.snp.bottom).offset(20)
-            make.left.equalToSuperview().offset(10)
-            make.right.equalToSuperview()
+            make.left.equalTo(imageView.snp.right).offset(10)
+            make.top.equalToSuperview().offset(20)
         }
         
-        eventCategoryLabel.snp.makeConstraints { make in
-            make.top.equalTo(eventNameLabel.snp.bottom).offset(10)
+        eventTypeLabel.snp.makeConstraints { make in
             make.left.equalTo(eventNameLabel)
+            make.centerY.equalToSuperview()
         }
         
         locationImageView.snp.makeConstraints { make in
             make.height.equalTo(20)
             make.width.equalTo(20)
-            make.top.equalTo(eventCategoryLabel.snp.bottom).offset(5)
-            make.left.equalTo(eventCategoryLabel)
+            make.bottom.equalToSuperview().offset(-20)
+            make.left.equalTo(eventTypeLabel)
         }
         
         locationLabel.snp.makeConstraints { make in
             make.left.equalTo(locationImageView.snp.right).offset(5)
             make.centerY.equalTo(locationImageView)
         }
+        
     }
     
-    func configureCell(event: Event) {
-        dateLabel.text = event.date
+    func configure(with event: Event) {
         eventNameLabel.text = event.name
-        eventCategoryLabel.text = event.type.rawValue
         locationLabel.text = event.location
+        eventTypeLabel.text = event.type.rawValue
+        dateLabel.text = event.date
+        
         let url = URL(string: event.image ?? "")
         imageView.kf.setImage(with: url)
     }

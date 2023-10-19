@@ -42,6 +42,8 @@
 		0A930C202ADF38E400E572FB /* MapBottomSheetContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A930C1F2ADF38E400E572FB /* MapBottomSheetContainerView.swift */; };
 		0A994F642AD9373700686712 /* CustomDropDown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A994F632AD9373700686712 /* CustomDropDown.swift */; };
 		0AB346C22AE1AD2700E455BA /* CalendarEventsHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB346C12AE1AD2700E455BA /* CalendarEventsHeaderCollectionReusableView.swift */; };
+		0AB346C52AE1CC7500E455BA /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB346C42AE1CC7500E455BA /* ProfileViewModel.swift */; };
+		0AB346C72AE1D1CD00E455BA /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB346C62AE1D1CD00E455BA /* UIImageView+Ext.swift */; };
 		0ABFE2D42AD2A7BB0092018E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABFE2D32AD2A7BB0092018E /* AppDelegate.swift */; };
 		0ABFE2D62AD2A7BB0092018E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABFE2D52AD2A7BB0092018E /* SceneDelegate.swift */; };
 		0ABFE2D82AD2A7BB0092018E /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ABFE2D72AD2A7BB0092018E /* LoginVC.swift */; };
@@ -128,6 +130,8 @@
 		0A930C1F2ADF38E400E572FB /* MapBottomSheetContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBottomSheetContainerView.swift; sourceTree = "<group>"; };
 		0A994F632AD9373700686712 /* CustomDropDown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDropDown.swift; sourceTree = "<group>"; };
 		0AB346C12AE1AD2700E455BA /* CalendarEventsHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarEventsHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
+		0AB346C42AE1CC7500E455BA /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		0AB346C62AE1D1CD00E455BA /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
 		0ABFE2D02AD2A7BB0092018E /* EventGo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EventGo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0ABFE2D32AD2A7BB0092018E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0ABFE2D52AD2A7BB0092018E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -218,6 +222,7 @@
 				0A0636D32AD35E87000B9825 /* CGFloat+Ext.swift */,
 				0A930C1B2ADF29D200E572FB /* MKAnnotationView+Ext.swift */,
 				0A0907202AE0520900C09085 /* UIViewController+Ext.swift */,
+				0AB346C62AE1D1CD00E455BA /* UIImageView+Ext.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -247,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				0A81ED362AD69C1B008C4675 /* ProfileVC.swift */,
+				0AB346C42AE1CC7500E455BA /* ProfileViewModel.swift */,
 			);
 			path = ProfileScreen;
 			sourceTree = "<group>";
@@ -618,6 +624,7 @@
 				0A0636D22AD35D07000B9825 /* UIView+Ext.swift in Sources */,
 				0A81ED452AD6AB1B008C4675 /* HomeCollectionViewHelper.swift in Sources */,
 				0AE5D0292AD49BD100CB8E43 /* AlertManager.swift in Sources */,
+				0AB346C72AE1D1CD00E455BA /* UIImageView+Ext.swift in Sources */,
 				0A0907232AE052C600C09085 /* EventCollectionViewCell.swift in Sources */,
 				0A994F642AD9373700686712 /* CustomDropDown.swift in Sources */,
 				0A5DD2412ADAD06D006D33E9 /* AuthTextField.swift in Sources */,
@@ -643,6 +650,7 @@
 				0A930C1E2ADF349F00E572FB /* MapBottomSheetVC.swift in Sources */,
 				0AF4519D2AD42D250057CEAF /* SignUpVC.swift in Sources */,
 				0AF451A02AD42D7A0057CEAF /* SignUpViewModel.swift in Sources */,
+				0AB346C52AE1CC7500E455BA /* ProfileViewModel.swift in Sources */,
 				0AE71C8F2AD856D2005D8B22 /* CreateEventViewModel.swift in Sources */,
 				0A81ED3F2AD6A6F6008C4675 /* HomeViewModel.swift in Sources */,
 				0A0636D62AD363A0000B9825 /* CustomTextView.swift in Sources */,

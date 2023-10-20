@@ -142,4 +142,33 @@ extension NetworkManager {
         }
         uploadTask.resume()
     }
+    
+    
+    func fetchEventsOnDate(dateString: String, completion: @escaping (Result<[Event]?,Error>) -> ()) {
+        
+        var events: [Event] = []
+        
+        db.collection("posts").whereField("date", isEqualTo: dateString).getDocuments { snp, error in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let snp = snp else {
+                completion(.failure(errorTypes.documentNotFound))
+                return
+            }
+            
+            for document in snp.documents {
+                do {
+                    let event = try document.data(as: Event.self)
+                    events.append(event)
+                } catch let error {
+                    completion(.failure(error))
+                }
+            }
+            completion(.success(events))
+            
+        }
+    }
+    
 }

@@ -1,20 +1,20 @@
 //
-//  CustomDropDown.swift
+//  GenderDropDown.swift
 //  EventGo
 //
-//  Created by Abdulkerim Can on 13.10.2023.
+//  Created by Abdulkerim Can on 21.10.2023.
 //
 
 import UIKit
 import iOSDropDown
 
-class CustomDropDown: DropDown {
-    var sectionsArray: [EventSection]
-    init(sectionsArray: [EventSection]) {
-        self.sectionsArray = sectionsArray
-        super.init(frame: .zero)
+class GenderDropDown: DropDown {
+    
+    var genderArray: [GenderEnum] = [.male,.female,.unknown]
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setUI()
-        
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -24,7 +24,7 @@ class CustomDropDown: DropDown {
     
     private func setUI() {
         backgroundColor = .label
-        placeholder = "Select Type"
+        placeholder = "Select Gender"
         selectedRowColor = UIColor(named: "mainColor") ?? .secondaryMain
         cornerRadius = 10
         isSearchEnable = false
@@ -36,8 +36,8 @@ class CustomDropDown: DropDown {
         arrowColor = .label
         textColor = .label
         
-        optionArray = sectionsArray.compactMap({ EventType in
-            EventType.rawValue
+        optionArray = genderArray.compactMap({ gender in
+            gender.rawValue
         })
     }
 }

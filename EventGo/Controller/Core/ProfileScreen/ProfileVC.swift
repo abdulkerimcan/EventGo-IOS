@@ -9,9 +9,11 @@ import UIKit
 import SnapKit
 
 protocol ProfileVCDelegate: AnyObject {
+    func configureVC()
     func configureProfileImage()
     func configureFollowingSection()
     func configureAboutSection()
+    func navigateToSettings()
 }
 
 final class ProfileVC: UIViewController {
@@ -21,7 +23,7 @@ final class ProfileVC: UIViewController {
     private let profileFullNameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .bold)
-        label.text = "Abdulkerim Çan"
+        label.text = "Maclovin"
         return label
     }()
     
@@ -128,9 +130,25 @@ final class ProfileVC: UIViewController {
         viewModel.viewDidLoad()
         
     }
+
+    //MARK: Selector Methods
+    @objc private func didTapSettings() {
+        navigateToSettings()
+    }
 }
 
 extension ProfileVC: ProfileVCDelegate {
+    
+    func navigateToSettings() {
+        DispatchQueue.main.async {
+            let vc = SettingsVC()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+
+    func configureVC() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(didTapSettings))
+    }
     
     func configureAboutSection() {
         view.addSubviews(aboutLabel,
@@ -157,6 +175,7 @@ extension ProfileVC: ProfileVCDelegate {
             make.centerX.equalToSuperview()
             make.top.equalTo(profileImageView.snp.bottom).offset(20)
         }
+        
         horizontalStackview.addArrangedSubview(followersVerticalStackview)
         horizontalStackview.addArrangedSubview(followingVerticalStackview)
         horizontalStackview.addArrangedSubview(eventsVerticalStackview)
@@ -183,11 +202,12 @@ extension ProfileVC: ProfileVCDelegate {
         }
     }
     
-    
     func configureProfileImage() {
         profileImageView = UIImageView(frame: .init(x: 0, y: 0, width: 100, height: 100))
         view.addSubview(profileImageView)
-        profileImageView.backgroundColor = .red
+        
+        profileImageView.image = UIImage(systemName: "person")
+        
         profileImageView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
             make.height.equalTo(100)

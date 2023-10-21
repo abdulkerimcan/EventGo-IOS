@@ -18,6 +18,7 @@ final class ProfileViewModel {
 
 extension ProfileViewModel: ProfileViewModelDelegate {
     func viewDidLoad() {
+        view?.configureVC()
         view?.configureProfileImage()
         view?.configureFollowingSection()
         view?.configureAboutSection()

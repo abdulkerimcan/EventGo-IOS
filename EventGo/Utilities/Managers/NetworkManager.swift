@@ -42,7 +42,7 @@ extension NetworkManager {
                 completion(true,nil)
                 return
             }
-            let user = User(id: result.user.uid, email: result.user.email,image: nil)
+            let user = User(id: result.user.uid, email: result.user.email,username: nil,image: nil)
             do {
                 try self.db.collection("Users").document(result.user.uid).setData(from: user)
             } catch let error {

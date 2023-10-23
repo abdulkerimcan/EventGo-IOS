@@ -16,9 +16,7 @@ protocol CalendarVCDelegate: AnyObject {
 }
 
 final class CalendarVC: UIViewController {
-    
-    
-    
+     
     private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.preferredDatePickerStyle = .inline

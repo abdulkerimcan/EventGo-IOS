@@ -8,9 +8,8 @@
 import UIKit
 import SnapKit
 
-protocol SettingsVCDelegate: AnyObject {
+protocol SettingsVCDelegate: AnyObject, AlertPresentable {
     func configureVC()
-    func showLogoutErrorAlert(error: Error)
     func navigateToLogin()
 }
 
@@ -90,11 +89,6 @@ extension SettingsVC: SettingsVCDelegate {
             }
         }
     }
-    
-    func showLogoutErrorAlert(error: Error) {
-        AlertManager.shared.showLogoutErrorAlert(on: self, error: error)
-    }
-    
     
     func configureVC() {
         title = "Settings"

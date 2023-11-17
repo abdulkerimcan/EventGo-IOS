@@ -11,7 +11,7 @@ import PhotosUI
 import iOSDropDown
 import MapKit
 
-protocol CreateEventVCDelegate: AnyObject {
+protocol CreateEventVCDelegate: AnyObject, AlertPresentable {
     func configureVC()
     func configureCoverView()
     func configureEventName()
@@ -156,18 +156,22 @@ final class CreateEventVC: UIViewController {
     
     @objc private func didTapcreateEventBtn() {
         guard let coverImageView = coverView.coverImageView.image else {
-            AlertManager.shared.showBasicAlert(title: "Empty Event image", message: "Event image cannot be empty", on: self)
+            showAlert(title: "Empty Event image", message: "Event image cannot be empty") {
+                
+            }
             return
         }
         
         guard let eventNameText = eventNameTF.text,
               !eventNameText.isEmpty else {
-            AlertManager.shared.showBasicAlert(title: "Empty Event Name", message: "Event Name cannot be empty", on: self)
+            showAlert(title: "Empty Event Name", message: "Event Name cannot be empty") {
+            }
             return
         }
         
         guard let dropDownSelectedIndex = dropDown.selectedIndex else {
-            AlertManager.shared.showBasicAlert(title: "Empty Event Type", message: "Event Type cannot be empty", on: self)
+            showAlert(title: "Empty Event Type", message: "Event Type cannot be empty") {
+            }
             return
         }
         
@@ -175,25 +179,29 @@ final class CreateEventVC: UIViewController {
         
         guard let eventDateText = eventDateTF.text,
               !eventDateText.isEmpty else {
-            AlertManager.shared.showBasicAlert(title: "Empty Event Date", message: "Event Date cannot be empty", on: self)
+            showAlert(title: "Empty Event Date", message: "Event Date cannot be empty") {
+            }
             return
         }
         
         guard let eventTimeText = eventTimeTF.text,
               !eventTimeText.isEmpty else {
-            AlertManager.shared.showBasicAlert(title: "Empty Event Time", message: "Event Time cannot be empty", on: self)
+            showAlert(title: "Empty Event Time", message: "Event Time cannot be empty") {
+            }
             return
         }
         
         guard let eventPriceText = eventPriceTF.text,
               !eventPriceText.isEmpty else {
-            AlertManager.shared.showBasicAlert(title: "Empty Event Price", message: "Event Price cannot be empty", on: self)
+            showAlert(title: "Empty Event Price", message: "Event Price cannot be empty") {
+            }
             return
         }
         
         guard let eventLocationText = eventLocationTF.text,
               !eventLocationText.isEmpty else {
-            AlertManager.shared.showBasicAlert(title: "Empty Event Location", message: "Event Location cannot be empty", on: self)
+            showAlert(title: "Empty Event Location", message: "Event Location cannot be empty") {
+            }
             return
         }
         

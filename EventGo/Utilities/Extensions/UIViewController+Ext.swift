@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 extension UIViewController {
     func createLayout() -> UICollectionViewFlowLayout {
@@ -16,4 +17,5 @@ extension UIViewController {
         layout.itemSize = CGSize(width: itemWidth * 0.9, height: itemWidth * 0.4)
         return layout
     }
+    
 }

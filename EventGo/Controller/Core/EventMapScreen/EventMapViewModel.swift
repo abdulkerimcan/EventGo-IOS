@@ -21,11 +21,10 @@ final class EventMapViewModel {
 extension EventMapViewModel: EventMapViewModelDelegate {
     
     func fetchEvents() {
-        NetworkManager.shared.fetchEvents { result in
+        NetworkManager.shared.getMultipleDatas(type: Event.self, path: .posts) { result in
             switch result {
             case .success(let success):
-                guard let fetchedList = success else {return}
-                self.events.append(contentsOf: fetchedList)
+                self.events.append(contentsOf: success)
                 self.view?.configureEventAnnotations(events: self.events)
             case .failure(let failure):
                 print(failure.localizedDescription)

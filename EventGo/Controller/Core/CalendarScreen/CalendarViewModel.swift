@@ -34,18 +34,16 @@ extension CalendarViewModel: CalendarViewModelDelegate {
         
         let dateString = formatDate(date: date)
         events.removeAll(keepingCapacity: false)
-        NetworkManager.shared.fetchEventsOnDate(dateString: dateString) { result in
+        NetworkManager.shared.getMultipleDatas(type: Event.self,whereField: EventFields.date,isEqualTo: dateString,path: .posts) { result in
             switch result {
             case .success(let success):
-                guard let eventArray = success else {
-                    return
-                }
-                self.events.append(contentsOf: eventArray)
+                self.events.append(contentsOf: success)
                 self.view?.reloadDate()
             case .failure(let failure):
                 print(failure.localizedDescription)
             }
         }
+        
     }
     
     func viewDidLoad() {

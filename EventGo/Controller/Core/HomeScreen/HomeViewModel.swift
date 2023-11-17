@@ -22,12 +22,10 @@ final class HomeViewModel {
 
 extension HomeViewModel: HomeViewModelDelegate {
     func fetchEvents() {
-        NetworkManager.shared.fetchEvents { result in
+
+        NetworkManager.shared.getMultipleDatas(type: Event.self, path: .posts) { result in
             switch result {
             case .success(let success):
-                guard let success = success else {
-                    return
-                }
                 self.events.append(contentsOf: success)
                 if self.events.count > 2 {
                     for i in 0...2 {

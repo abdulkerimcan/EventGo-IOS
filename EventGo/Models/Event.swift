@@ -7,10 +7,11 @@
 
 import Foundation
 
-struct Event: Codable {
-    let id: String
+struct Event: Codable,BaseModelProtocol {
+    
+    var id: String?
     let ownerId: String?
-    let image: String?
+    var image: String?
     let name: String
     let type: EventSection
     let date: String

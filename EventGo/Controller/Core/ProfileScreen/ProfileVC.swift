@@ -7,13 +7,16 @@
 
 import UIKit
 import SnapKit
+import Kingfisher
 
 protocol ProfileVCDelegate: AnyObject {
+    func configureFollowingSection()
     func configureVC()
     func configureProfileImage()
-    func configureFollowingSection()
     func configureAboutSection()
     func navigateToSettings()
+    func prepareVC(with user: User?)
+    func prepareProfileImage(with image: String)
 }
 
 final class ProfileVC: UIViewController {
@@ -61,7 +64,6 @@ final class ProfileVC: UIViewController {
     private let followersCountLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .bold)
-        label.text = "1211"
         return label
     }()
     
@@ -75,7 +77,6 @@ final class ProfileVC: UIViewController {
     private let followingCountLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .bold)
-        label.text = "1211"
         return label
     }()
     
@@ -89,7 +90,6 @@ final class ProfileVC: UIViewController {
     private let eventsCountLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .bold)
-        label.text = "1211"
         return label
     }()
     
@@ -130,7 +130,12 @@ final class ProfileVC: UIViewController {
         viewModel.viewDidLoad()
         
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.viewWillAppear()
+    }
+    
     //MARK: Selector Methods
     @objc private func didTapSettings() {
         navigateToSettings()
@@ -138,6 +143,25 @@ final class ProfileVC: UIViewController {
 }
 
 extension ProfileVC: ProfileVCDelegate {
+    func configureProfileImage() {
+        profileImageView = UIImageView(frame: .init(x: 0, y: 0, width: 100, height: 100))
+        view.addSubview(profileImageView)
+        
+        profileImageView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
+            make.height.equalTo(100)
+            make.width.equalTo(100)
+            make.centerX.equalToSuperview()
+        }
+        
+        profileImageView.makeRounded()
+    }
+    
+    func configureVC() {
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(didTapSettings))
+    }
+    
     
     func navigateToSettings() {
         DispatchQueue.main.async {
@@ -145,9 +169,15 @@ extension ProfileVC: ProfileVCDelegate {
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
-
-    func configureVC() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(didTapSettings))
+    
+    func prepareVC(with user: User?) {
+        guard let user = user else {
+            return
+        }
+        profileFullNameLabel.text = user.fullname
+        followersCountLabel.text = "\(user.followers.count)"
+        followingCountLabel.text = "\(user.followings.count)"
+        eventsCountLabel.text = "\(user.events.count)"
     }
     
     func configureAboutSection() {
@@ -202,20 +232,12 @@ extension ProfileVC: ProfileVCDelegate {
         }
     }
     
-    func configureProfileImage() {
-        profileImageView = UIImageView(frame: .init(x: 0, y: 0, width: 100, height: 100))
-        view.addSubview(profileImageView)
+    func prepareProfileImage(with image: String) {
         
-        profileImageView.image = UIImage(systemName: "person")
+        let url = URL(string: image)
         
-        profileImageView.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(20)
-            make.height.equalTo(100)
-            make.width.equalTo(100)
-            make.centerX.equalToSuperview()
-        }
-        
-        profileImageView.makeRounded()
+        profileImageView.kf.setImage(with: url,
+                                     placeholder: UIImage(systemName: "person"))
         
     }
 }

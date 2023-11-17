@@ -23,7 +23,9 @@ extension SettingsViewModel: SettingsViewModelDelegate {
         NetworkManager.shared.logout {[weak self] error in
             guard let self = self else {return}
             if let error = error {
-                self.view?.showLogoutErrorAlert(error: error)
+                self.view?.showAlert(title: "Logout Error", message: error.localizedDescription, okAction: {
+                    
+                })
                 return
             }
             self.view?.navigateToLogin()

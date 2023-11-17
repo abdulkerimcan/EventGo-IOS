@@ -45,7 +45,7 @@ final class AuthHeaderView: UIView {
         
         imageView.snp.makeConstraints { make in
             make.height.equalTo(100)
-            make.width.equalTo(CGFloat.dWidth)
+            make.centerX.equalToSuperview()
         }
         
         titleLabel.snp.makeConstraints { make in

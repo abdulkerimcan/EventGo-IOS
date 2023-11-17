@@ -7,54 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C267495B-6A94-443F-BFC7-62262C400D8B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EventGo/Controller/Other/CreateEventScreen/CreateEventViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "86"
-            endingLineNumber = "86"
-            landmarkName = "postEvent(eventNameText:eventType:eventDateText:eventTimeText:eventPriceText:eventLocationText:eventCoordinateTuple:imageData:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "C267495B-6A94-443F-BFC7-62262C400D8B - afc86c799e0312a3"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "EventGo.CreateEventViewModel.postEvent(eventNameText: Swift.String, eventTypeText: Swift.String, eventDateText: Swift.String, eventTimeText: Swift.String, eventPriceText: Swift.String, eventLocationText: Swift.String, eventCoordinateTuple: (latitude: Swift.Double, longitude: Swift.Double), imageData: Swift.Optional&lt;Foundation.Data&gt;) -&gt; ()"
-                  moduleName = "EventGo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kerim/Desktop/IOS%20Development/EventGo-IOS/EventGo/Controller/Other/CreateEventScreen/CreateEventViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "84"
-                  endingLineNumber = "84"
-                  offsetFromSymbolStart = "1044">
-               </Location>
-               <Location
-                  uuid = "C267495B-6A94-443F-BFC7-62262C400D8B - eb1c319e96e5309e"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;) -&gt; () in EventGo.CreateEventViewModel.postEvent(eventNameText: Swift.String, eventTypeText: Swift.String, eventDateText: Swift.String, eventTimeText: Swift.String, eventPriceText: Swift.String, eventLocationText: Swift.String, eventCoordinateTuple: (latitude: Swift.Double, longitude: Swift.Double), imageData: Swift.Optional&lt;Foundation.Data&gt;) -&gt; ()"
-                  moduleName = "EventGo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/kerim/Desktop/IOS%20Development/EventGo-IOS/EventGo/Controller/Other/CreateEventScreen/CreateEventViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "85"
-                  endingLineNumber = "85"
-                  offsetFromSymbolStart = "60">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "9D6820B9-70CA-433E-8014-D0C2794B7F40"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -71,22 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "0F42F4F8-2E29-4BB2-A99A-85E9B7F7B3C8"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "EventGo/Controller/Core/HomeScreen/HomeViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "25"
-            endingLineNumber = "25"
-            landmarkName = "fetchEvents()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "BD6D7F17-2EB2-41DC-B445-4F91D7AFB2E6"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -94,8 +30,8 @@
             filePath = "EventGo/Controller/Core/HomeScreen/HomeViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "45"
-            endingLineNumber = "45"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>

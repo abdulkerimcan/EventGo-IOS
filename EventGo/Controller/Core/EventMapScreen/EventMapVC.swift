@@ -68,13 +68,14 @@ extension EventMapVC: EventMapVCDelegate {
         mapview.delegate = self
         locationManager = CLLocationManager()
         locationManager?.delegate = self
+        locationManager?.requestWhenInUseAuthorization()
     }
 }
 
 extension EventMapVC: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        guard let locationManager = locationManager, let location =
-                locationManager.location else {
+        guard let locationManager = locationManager,
+              let location = locationManager.location else {
             return
         }
         

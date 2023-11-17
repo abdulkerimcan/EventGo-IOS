@@ -70,8 +70,8 @@ extension CreateEventViewModel: CreateEventViewModelDelegate {
         eventCoordinateTuple: (latitude: Double,longitude: Double),
         imageData: Data?) {
             
-            
-            let event = Event(id: UUID().uuidString,
+            let eventId = UUID().uuidString
+            let event = Event(id: eventId,
                               ownerId: Auth.auth().currentUser?.uid,
                               image: imageData?.base64EncodedString(),
                               name: eventNameText,
@@ -83,12 +83,29 @@ extension CreateEventViewModel: CreateEventViewModelDelegate {
                               latitude: eventCoordinateTuple.latitude,
                               longitude: eventCoordinateTuple.longitude)
             
-            NetworkManager.shared.postEvent(event: event,data: imageData) { error in
+            
+            NetworkManager.shared.post(entity: event, data: imageData, path: .posts) { error in
                 if let error = error {
-                    print("\(error.localizedDescription)")
+                    print(error.localizedDescription)
                     return
                 }
-                self.view?.navigateToTabVC()
+                guard let userId = UserConstants.user?.id else {
+                    return
+                }
+
+                NetworkManager.shared.updateArrayField(id: userId, path: .users, field: UserFields.events.rawValue, value: eventId) { error in
+                    if let error = error {
+                        print(error.localizedDescription)
+                        return
+                    }
+                    guard let user = UserConstants.user else {
+                        return
+                    }
+                    var updatedUser = user
+                    updatedUser.events.append(eventId)
+                    UserDefaults.standard.saveUser(user: updatedUser, forKey: "user")
+                    self.view?.navigateToTabVC()
+                }
             }
         }
 }

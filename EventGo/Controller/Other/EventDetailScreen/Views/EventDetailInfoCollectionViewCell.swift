@@ -14,7 +14,7 @@ final class EventDetailInfoCollectionViewCell: UICollectionViewCell {
     
     private lazy var eventNameLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 28, weight: .bold)
+        label.font = .systemFont(ofSize: 24, weight: .bold)
         return label
     }()
     
@@ -27,13 +27,13 @@ final class EventDetailInfoCollectionViewCell: UICollectionViewCell {
     
     private lazy var dateLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.font = .systemFont(ofSize: 18, weight: .medium)
         return label
     }()
     
     private lazy var hourLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 20, weight: .thin)
+        label.font = .systemFont(ofSize: 16, weight: .thin)
         return label
     }()
     
@@ -48,7 +48,7 @@ final class EventDetailInfoCollectionViewCell: UICollectionViewCell {
     
     private lazy var locationLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 20, weight: .medium)
+        label.font = .systemFont(ofSize: 18, weight: .medium)
         return label
     }()
     

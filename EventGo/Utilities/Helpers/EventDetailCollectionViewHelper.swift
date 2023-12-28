@@ -103,7 +103,7 @@ extension UIViewController {
                 heightDimension: .fractionalHeight(1.0)
             )
         )
-        item.contentInsets = NSDirectionalEdgeInsets(top: 10,
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0,
                                                      leading: 16,
                                                      bottom: 10,
                                                      trailing: 16)

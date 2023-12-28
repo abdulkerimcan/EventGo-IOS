@@ -10,7 +10,7 @@ import Foundation
 struct Event: Codable,BaseModelProtocol {
     
     var id: String?
-    let ownerId: String?
+    let ownerId: String
     var image: String?
     let name: String
     let type: EventSection

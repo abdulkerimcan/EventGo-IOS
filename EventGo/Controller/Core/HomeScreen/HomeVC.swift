@@ -12,6 +12,7 @@ protocol HomeVCDelegate: AnyObject {
     func configureCollectionView()
     func configureVC()
     func reloadData()
+    func navigateToDetail(with event: Event)
     
 }
 
@@ -30,6 +31,12 @@ final class HomeVC: UIViewController {
 }
 
 extension HomeVC: HomeVCDelegate {
+    func navigateToDetail(with event: Event) {
+        DispatchQueue.main.async {
+            let vc = EventDetailVC(event: event)
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
     func reloadData() {
         DispatchQueue.main.async {
@@ -39,8 +46,15 @@ extension HomeVC: HomeVCDelegate {
     
     func configureVC() {
         
-        navigationItem.setRightBarButtonItems([UIBarButtonItem(image: UIImage(systemName: "bookmark.fill"), style: .done, target: self, action: nil),
-                                               UIBarButtonItem(image: UIImage(systemName: "bell.fill"), style: .done, target: self, action: nil)], animated: true)
+        navigationItem.setRightBarButtonItems([UIBarButtonItem(image: UIImage(systemName: "bookmark.fill"),
+                                                               style: .done,
+                                                               target: self,
+                                                               action: nil),
+                                               UIBarButtonItem(image: UIImage(systemName: "bell.fill"),
+                                                               style: .done,
+                                                               target: self,
+                                                               action: nil)],
+                                              animated: true)
         
     }
     
@@ -50,7 +64,7 @@ extension HomeVC: HomeVCDelegate {
         
         
         view.addSubview(collectionView)
-        collectionView.backgroundColor = UIColor(named: "secondaryMainColor")
+        collectionView.backgroundColor = .secondaryMain
         collectionView.dataSource = self
         collectionView.delegate = self
         
@@ -103,6 +117,11 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        viewModel.getEvent(indexPath: indexPath)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let section = viewModel.sections[indexPath.section]
         
@@ -140,3 +159,4 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
         }
     }
 }
+

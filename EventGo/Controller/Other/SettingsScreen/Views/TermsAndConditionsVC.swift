@@ -163,6 +163,5 @@ final class TermsAndConditionsVC: UIViewController {
         stackview.addArrangedSubview(changesTitle)
         stackview.addArrangedSubview(changesLabel)
         
-        
     }
 }

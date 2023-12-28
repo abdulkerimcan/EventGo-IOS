@@ -65,12 +65,14 @@ final class SettingsVC: UIViewController {
             self.present(vc, animated: true)
         }
     }
+    
     @objc private func didTapPrivacyPolicyView() {
         DispatchQueue.main.async {
             let vc = PrivacyPolicyVC()
             self.present(vc, animated: true)
         }
     }
+    
     @objc private func didTapAboutUsView() {
         DispatchQueue.main.async {
             let vc = AboutUsVC()

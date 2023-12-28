@@ -71,15 +71,21 @@ extension NetworkManager {
         }
     }
     
-    func updateArrayField(id: String,path:CollectionPath, field: String, value: Any, completion: @escaping (Error?) -> ()) {
-        db.collection(path.rawValue).document(id).updateData([field: FieldValue.arrayUnion([value])]) { error in
-            if let error = error {
-                completion(error)
-                return
+    func updateArrayField(id: String,path:CollectionPath, field: String, value: Event, completion: @escaping (Error?) -> ()) {
+        do {
+            let eventData = try Firestore.Encoder().encode(value)
+            db.collection(path.rawValue).document(id).updateData([field: FieldValue.arrayUnion([eventData])]) { error in
+                if let error = error {
+                    completion(error)
+                    return
+                }
+                
+                completion(nil)
             }
-            
-            completion(nil)
+        }catch let error {
+            completion(error)
         }
+        
     }
     
     func update(id: String,
@@ -274,3 +280,4 @@ enum ErrorTypes: Error {
     case typeNotMatch
     case serializationFailed
 }
+

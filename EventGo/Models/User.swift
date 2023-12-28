@@ -15,11 +15,20 @@ struct User: Codable, BaseModelProtocol {
     var fullname: String
     var followers: [String]
     var followings: [String]
-    var events: [String]
+    var events: [Event]
     var dateOfBirth: String
     var gender: String
     
-    init(id: String? = nil, email: String, fullname: String, followers: [String] = [],image: String? = nil, followings: [String] = [], events: [String] = [], dateOfBirth: String, gender: String) {
+    init(id: String? = nil,
+         email: String,
+         fullname: String,
+         followers: [String] = [],
+         image: String? = nil,
+         followings: [String] = [],
+         events: [Event] = [],
+         dateOfBirth: String,
+         gender: String) {
+        
         self.id = id
         self.email = email
         self.fullname = fullname
@@ -31,3 +40,4 @@ struct User: Codable, BaseModelProtocol {
         self.gender = gender
     }
 }
+

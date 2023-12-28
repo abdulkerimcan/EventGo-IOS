@@ -27,6 +27,7 @@ final class AboutUsVC: UIViewController {
         label.text = "About EventGO"
         return label
     }()
+    
     private let aboutLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .thin)
@@ -41,6 +42,7 @@ final class AboutUsVC: UIViewController {
         label.text = "Our Mission"
         return label
     }()
+    
     private let missionLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .thin)
@@ -55,6 +57,7 @@ final class AboutUsVC: UIViewController {
         label.text = "Key Features"
         return label
     }()
+    
     private let keyfeaturesLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .thin)
@@ -69,6 +72,7 @@ final class AboutUsVC: UIViewController {
         label.text = "Join Us on the Journey"
         return label
     }()
+    
     private let joinUsLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .thin)
@@ -76,7 +80,6 @@ final class AboutUsVC: UIViewController {
         label.numberOfLines = 0
         return label
     }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

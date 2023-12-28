@@ -11,6 +11,7 @@ protocol HomeViewModelDelegate {
     var view: HomeVCDelegate? {get set}
     func viewDidLoad()
     func fetchEvents()
+    func getEvent(indexPath: IndexPath)
 }
 
 final class HomeViewModel {
@@ -21,8 +22,19 @@ final class HomeViewModel {
 }
 
 extension HomeViewModel: HomeViewModelDelegate {
+    func getEvent(indexPath: IndexPath) {
+        let section = sections[indexPath.section]
+        switch section {
+        case .featured:
+            view?.navigateToDetail(with: featuredEvents[indexPath.item])
+        case .newest:
+            view?.navigateToDetail(with: events[indexPath.item])
+        default:
+            view?.navigateToDetail(with: getFilteredEvents(eventType: section)[indexPath.item])
+        }
+    }
     func fetchEvents() {
-
+        
         NetworkManager.shared.getMultipleDatas(type: Event.self, path: .posts) { result in
             switch result {
             case .success(let success):
@@ -57,3 +69,4 @@ extension HomeViewModel: HomeViewModelDelegate {
         return filteredEvents
     }
 }
+

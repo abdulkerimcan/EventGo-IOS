@@ -27,6 +27,7 @@ final class PrivacyPolicyVC: UIViewController {
         label.text = "1. Information We Collect"
         return label
     }()
+    
     private let informationTextLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .thin)
@@ -41,6 +42,7 @@ final class PrivacyPolicyVC: UIViewController {
         label.text = "2. How We Use Your Information"
         return label
     }()
+    
     private let usageTextLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .thin)
@@ -55,6 +57,7 @@ final class PrivacyPolicyVC: UIViewController {
         label.text = "3. Sharing Your Information"
         return label
     }()
+    
     private let sharingLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .thin)
@@ -69,6 +72,7 @@ final class PrivacyPolicyVC: UIViewController {
         label.text = "4. Security"
         return label
     }()
+    
     private let securityLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .thin)
@@ -83,6 +87,7 @@ final class PrivacyPolicyVC: UIViewController {
         label.text = "5. Changes to This Privacy Policy"
         return label
     }()
+    
     private let changesLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 18, weight: .thin)
@@ -90,7 +95,6 @@ final class PrivacyPolicyVC: UIViewController {
         label.numberOfLines = 0
         return label
     }()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,7 +126,6 @@ final class PrivacyPolicyVC: UIViewController {
         
         stackview.addArrangedSubview(securityTitle)
         stackview.addArrangedSubview(securityLabel)
-        
         
         stackview.addArrangedSubview(changesTitle)
         stackview.addArrangedSubview(changesLabel)

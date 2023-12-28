@@ -8,7 +8,6 @@
 import Foundation
 import FirebaseAuth
 
-
 protocol CreateEventViewModelDelegate {
     var view: CreateEventVCDelegate? {get set}
     func didTapDateDoneBtn(date: Date) -> String
@@ -71,8 +70,13 @@ extension CreateEventViewModel: CreateEventViewModelDelegate {
         imageData: Data?) {
             
             let eventId = UUID().uuidString
+            
+            guard let userId = UserConstants.user?.id else {
+                return
+            }
+            
             let event = Event(id: eventId,
-                              ownerId: Auth.auth().currentUser?.uid,
+                              ownerId: userId,
                               image: imageData?.base64EncodedString(),
                               name: eventNameText,
                               type: eventType,
@@ -89,11 +93,7 @@ extension CreateEventViewModel: CreateEventViewModelDelegate {
                     print(error.localizedDescription)
                     return
                 }
-                guard let userId = UserConstants.user?.id else {
-                    return
-                }
-
-                NetworkManager.shared.updateArrayField(id: userId, path: .users, field: UserFields.events.rawValue, value: eventId) { error in
+                NetworkManager.shared.updateArrayField(id: userId, path: .users, field: UserFields.events.rawValue, value: event) { error in
                     if let error = error {
                         print(error.localizedDescription)
                         return
@@ -102,10 +102,11 @@ extension CreateEventViewModel: CreateEventViewModelDelegate {
                         return
                     }
                     var updatedUser = user
-                    updatedUser.events.append(eventId)
+                    updatedUser.events.append(event)
                     UserDefaults.standard.saveUser(user: updatedUser, forKey: "user")
                     self.view?.navigateToTabVC()
                 }
             }
         }
 }
+

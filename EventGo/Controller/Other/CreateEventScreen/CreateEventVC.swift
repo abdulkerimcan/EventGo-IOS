@@ -22,9 +22,18 @@ protocol CreateEventVCDelegate: AnyObject, AlertPresentable {
     func configureMapView()
     func configureCreateEventButton()
     func navigateToTabVC()
+    func startAnimating()
+    func stopAnimating()
 }
 
 final class CreateEventVC: UIViewController {
+    
+    private let spinner: UIActivityIndicatorView = {
+       let spinner = UIActivityIndicatorView()
+        spinner.hidesWhenStopped = true
+        spinner.style = .large
+        return spinner
+    }()
     
     private let scrollView = UIScrollView()
     
@@ -155,9 +164,9 @@ final class CreateEventVC: UIViewController {
     }
     
     @objc private func didTapcreateEventBtn() {
+        
         guard let coverImageView = coverView.coverImageView.image else {
             showAlert(title: "Empty Event image", message: "Event image cannot be empty") {
-                
             }
             return
         }
@@ -219,14 +228,28 @@ final class CreateEventVC: UIViewController {
 }
 
 extension CreateEventVC: CreateEventVCDelegate {
+    func startAnimating() {
+        scrollView.isUserInteractionEnabled = false
+        scrollView.alpha = 0.3
+        spinner.startAnimating()
+    }
+    
+    func stopAnimating() {
+        scrollView.isUserInteractionEnabled = true
+        scrollView.alpha = 1
+        spinner.stopAnimating()
+    }
+    
     
     func configureVC() {
         title = "Create New Event"
         view.backgroundColor = UIColor(named: "secondaryMainColor")
-        
+        view.addSubview(spinner)
+        spinner.center = view.center
+        spinner.layer.zPosition = .greatestFiniteMagnitude
         view.addSubview(scrollView)
         scrollView.snp.makeConstraints { make in
-            make.left.right.top.bottom.equalToSuperview()
+            make.left.right.top.bottom.equalTo(view.safeAreaLayoutGuide)
             make.width.equalTo(CGFloat.dWidth)
         }
         scrollView.addSubview(stackview)

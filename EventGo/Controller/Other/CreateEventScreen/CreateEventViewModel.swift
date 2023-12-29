@@ -68,7 +68,7 @@ extension CreateEventViewModel: CreateEventViewModelDelegate {
         eventLocationText: String,
         eventCoordinateTuple: (latitude: Double,longitude: Double),
         imageData: Data?) {
-            
+            view?.startAnimating()
             let eventId = UUID().uuidString
             
             guard let userId = UserConstants.user?.id else {
@@ -93,7 +93,10 @@ extension CreateEventViewModel: CreateEventViewModelDelegate {
                     print(error.localizedDescription)
                     return
                 }
-                NetworkManager.shared.updateArrayField(id: userId, path: .users, field: UserFields.events.rawValue, value: event) { error in
+                NetworkManager.shared.updateArrayField(id: userId, path: .users, field: UserFields.events.rawValue, value: event) {[weak self] error in
+                    guard let self else {
+                        return
+                    }
                     if let error = error {
                         print(error.localizedDescription)
                         return
@@ -104,6 +107,7 @@ extension CreateEventViewModel: CreateEventViewModelDelegate {
                     var updatedUser = user
                     updatedUser.events.append(event)
                     UserDefaults.standard.saveUser(user: updatedUser, forKey: "user")
+                    self.view?.stopAnimating()
                     self.view?.navigateToTabVC()
                 }
             }

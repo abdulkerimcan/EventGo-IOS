@@ -36,6 +36,7 @@
 		0A81ED482AD6B33F008C4675 /* FeaturedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A81ED472AD6B33F008C4675 /* FeaturedCollectionViewCell.swift */; };
 		0A8259AA2AE7C9CC002D0CDD /* UIStackView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8259A92AE7C9CC002D0CDD /* UIStackView+Ext.swift */; };
 		0A8364982AF8107E00ED92D5 /* UserConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8364972AF8107E00ED92D5 /* UserConstants.swift */; };
+		0A8C42DD2B434F09007329EC /* SearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A8C42DC2B434F09007329EC /* SearchViewModel.swift */; };
 		0A90D2D22AE71F54005A007E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0A90D2D12AE71F54005A007E /* GoogleService-Info.plist */; };
 		0A911F372AD730F4008085A5 /* HomeScreenEventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A911F362AD730F4008085A5 /* HomeScreenEventCollectionViewCell.swift */; };
 		0A911F392AD73770008085A5 /* HeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A911F382AD73770008085A5 /* HeaderCollectionReusableView.swift */; };
@@ -61,6 +62,7 @@
 		0AC4F2022AD8ACA500502F08 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 0AC4F2012AD8ACA500502F08 /* Kingfisher */; };
 		0AC4F2052AD8AD5300502F08 /* iOSDropDown in Frameworks */ = {isa = PBXBuildFile; productRef = 0AC4F2042AD8AD5300502F08 /* iOSDropDown */; };
 		0ACD98DE2AD89F3800A01CA2 /* CoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACD98DD2AD89F3800A01CA2 /* CoverView.swift */; };
+		0ACFEE9E2B41C6A7004FF3E5 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0ACFEE9D2B41C6A7004FF3E5 /* SearchVC.swift */; };
 		0AD586C52B3E18C300406A93 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0AD586C42B3E18C300406A93 /* GoogleService-Info.plist */; };
 		0AD586C82B3E1A4E00406A93 /* EventDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD586C72B3E1A4E00406A93 /* EventDetailVC.swift */; };
 		0AD586CA2B3E1A7A00406A93 /* EventDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AD586C92B3E1A7A00406A93 /* EventDetailViewModel.swift */; };
@@ -146,6 +148,7 @@
 		0A81ED472AD6B33F008C4675 /* FeaturedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedCollectionViewCell.swift; sourceTree = "<group>"; };
 		0A8259A92AE7C9CC002D0CDD /* UIStackView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Ext.swift"; sourceTree = "<group>"; };
 		0A8364972AF8107E00ED92D5 /* UserConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserConstants.swift; sourceTree = "<group>"; };
+		0A8C42DC2B434F09007329EC /* SearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModel.swift; sourceTree = "<group>"; };
 		0A90D2D12AE71F54005A007E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0A911F362AD730F4008085A5 /* HomeScreenEventCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreenEventCollectionViewCell.swift; sourceTree = "<group>"; };
 		0A911F382AD73770008085A5 /* HeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -169,6 +172,7 @@
 		0ABFE2E12AD2A7BC0092018E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0ABFE2EB2AD2B3C80092018E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0ACD98DD2AD89F3800A01CA2 /* CoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverView.swift; sourceTree = "<group>"; };
+		0ACFEE9D2B41C6A7004FF3E5 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		0AD586C42B3E18C300406A93 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0AD586C72B3E1A4E00406A93 /* EventDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailVC.swift; sourceTree = "<group>"; };
 		0AD586C92B3E1A7A00406A93 /* EventDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailViewModel.swift; sourceTree = "<group>"; };
@@ -242,6 +246,7 @@
 		0A0636CA2AD3598E000B9825 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0A0907222AE052C600C09085 /* EventCollectionViewCell.swift */,
 				0ADCBAE62AE26B8A004EA494 /* CustomItemTileView.swift */,
 				0A0636D52AD363A0000B9825 /* CustomTextView.swift */,
 				0AF4519A2AD4185D0057CEAF /* CustomButton.swift */,
@@ -417,6 +422,15 @@
 			path = Constans;
 			sourceTree = "<group>";
 		};
+		0A8C42DE2B435C97007329EC /* SearchScreen */ = {
+			isa = PBXGroup;
+			children = (
+				0ACFEE9D2B41C6A7004FF3E5 /* SearchVC.swift */,
+				0A8C42DC2B434F09007329EC /* SearchViewModel.swift */,
+			);
+			path = SearchScreen;
+			sourceTree = "<group>";
+		};
 		0A930C162ADF115100E572FB /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -437,7 +451,6 @@
 		0AB346C32AE1C0A700E455BA /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0A0907222AE052C600C09085 /* EventCollectionViewCell.swift */,
 				0AB346C12AE1AD2700E455BA /* CalendarEventsHeaderCollectionReusableView.swift */,
 			);
 			path = Views;
@@ -574,6 +587,7 @@
 		0AE71C8A2AD8467B005D8B22 /* Other */ = {
 			isa = PBXGroup;
 			children = (
+				0A8C42DE2B435C97007329EC /* SearchScreen */,
 				0AD586C62B3E1A3800406A93 /* EventDetailScreen */,
 				0A9855A82AE2BBC100C281E0 /* EditProfileScreen */,
 				0ADCBAE12AE26674004EA494 /* SettingsScreen */,
@@ -726,6 +740,7 @@
 				0ACD98DE2AD89F3800A01CA2 /* CoverView.swift in Sources */,
 				0A930C202ADF38E400E572FB /* MapBottomSheetContainerView.swift in Sources */,
 				0A911F372AD730F4008085A5 /* HomeScreenEventCollectionViewCell.swift in Sources */,
+				0A8C42DD2B434F09007329EC /* SearchViewModel.swift in Sources */,
 				0AD586D52B3E1B6B00406A93 /* EventDetailUserInteractionView.swift in Sources */,
 				0AD586CA2B3E1A7A00406A93 /* EventDetailViewModel.swift in Sources */,
 				0A81ED3D2AD69C5E008C4675 /* CalendarVC.swift in Sources */,
@@ -769,6 +784,7 @@
 				0A930C1C2ADF29D200E572FB /* MKAnnotationView+Ext.swift in Sources */,
 				0AB346C22AE1AD2700E455BA /* CalendarEventsHeaderCollectionReusableView.swift in Sources */,
 				0A0907212AE0520900C09085 /* UIViewController+Ext.swift in Sources */,
+				0ACFEE9E2B41C6A7004FF3E5 /* SearchVC.swift in Sources */,
 				0A0636CE2AD359B5000B9825 /* AuthHeaderView.swift in Sources */,
 				0AD586D12B3E1B1F00406A93 /* EventDetailOrganizerCollectionViewCell.swift in Sources */,
 				0A06A76B2AF4F57300EC947E /* AlertPresentable.swift in Sources */,

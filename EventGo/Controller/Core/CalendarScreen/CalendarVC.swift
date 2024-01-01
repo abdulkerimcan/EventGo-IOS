@@ -73,7 +73,7 @@ extension CalendarVC: CalendarVCDelegate {
             
         }
         
-        collectionview.backgroundColor = UIColor(named: "secondaryMainColor")
+        collectionview.backgroundColor = .secondaryMain
         collectionview.delegate = self
         collectionview.dataSource = self
         

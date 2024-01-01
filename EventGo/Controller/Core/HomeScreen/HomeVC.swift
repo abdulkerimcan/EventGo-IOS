@@ -22,6 +22,8 @@ final class HomeVC: UIViewController {
     
     private var collectionView: UICollectionView!
     
+    private var searchController = UISearchController(searchResultsController: SearchVC())
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -55,7 +57,10 @@ extension HomeVC: HomeVCDelegate {
                                                                target: self,
                                                                action: nil)],
                                               animated: true)
-        
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = self
     }
     
     func configureCollectionView() {
@@ -157,6 +162,15 @@ extension HomeVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollec
             
             return cell
         }
+    }
+}
+
+extension HomeVC: UISearchResultsUpdating {
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let vc = searchController.searchResultsController as? SearchVC else {
+            return
+        }
+        vc.viewModel.search(searchText: searchController.searchBar.text, events: viewModel.events)
     }
 }
 

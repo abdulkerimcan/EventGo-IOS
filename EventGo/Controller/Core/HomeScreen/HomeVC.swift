@@ -47,7 +47,8 @@ extension HomeVC: HomeVCDelegate {
     }
     
     func configureVC() {
-        
+        title = "Home"
+        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.setRightBarButtonItems([UIBarButtonItem(image: UIImage(systemName: "bookmark.fill"),
                                                                style: .done,
                                                                target: self,

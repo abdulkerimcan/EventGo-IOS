@@ -45,7 +45,8 @@ final class CalendarVC: UIViewController {
 extension CalendarVC: CalendarVCDelegate {
     
     func configureVC() {
-        navigationController?.navigationBar.isHidden = true
+        title = "Calendar"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     func configureDatePicker() {

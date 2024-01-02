@@ -570,18 +570,10 @@
 		0AE71C862AD83E23005D8B22 /* EventListScreen */ = {
 			isa = PBXGroup;
 			children = (
-				0AE71C892AD84526005D8B22 /* Views */,
 				0A81ED382AD69C36008C4675 /* EventListVC.swift */,
 				0AE71C872AD83E46005D8B22 /* EventListViewModel.swift */,
 			);
 			path = EventListScreen;
-			sourceTree = "<group>";
-		};
-		0AE71C892AD84526005D8B22 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		0AE71C8A2AD8467B005D8B22 /* Other */ = {

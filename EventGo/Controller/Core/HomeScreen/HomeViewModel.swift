@@ -35,7 +35,7 @@ extension HomeViewModel: HomeViewModelDelegate {
     }
     func fetchEvents() {
         
-        NetworkManager.shared.getMultipleDatas(type: Event.self, path: .posts) { result in
+        NetworkManager.shared.getMultipleDatas(type: Event.self, whereField: EventFields.ownerId,isEqual: false, isEqualTo: UserConstants.user?.id, path: .posts) { result in
             switch result {
             case .success(let success):
                 self.events.append(contentsOf: success)

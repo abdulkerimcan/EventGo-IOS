@@ -30,7 +30,6 @@ final class EventMapVC: UIViewController {
         super.viewDidLoad()
         viewModel.view = self
         viewModel.viewDidLoad()
-        
     }
 }
 

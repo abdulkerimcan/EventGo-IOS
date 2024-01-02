@@ -158,7 +158,8 @@ extension ProfileVC: ProfileVCDelegate {
     }
     
     func configureVC() {
-        
+        title = "Profile"
+        navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "gear"), style: .plain, target: self, action: #selector(didTapSettings))
     }
     

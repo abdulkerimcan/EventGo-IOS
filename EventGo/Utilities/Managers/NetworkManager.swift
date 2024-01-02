@@ -197,13 +197,19 @@ extension NetworkManager {
     
     func getMultipleDatas<T: Codable>(type: T.Type,
                                       whereField: Fields? = nil,
+                                      isEqual: Bool? = true,
                                       isEqualTo: Any? = nil,
                                       path: CollectionPath,
                                       completion: @escaping (Result<[T],Error>) -> ()) {
         var datas: [T] = []
         var query: Query = db.collection(path.rawValue)
+        
         if let field = whereField , let value = isEqualTo {
-            query = query.whereField(field.rawValue, isEqualTo: value)
+            if isEqual ?? true {
+                query = query.whereField(field.rawValue, isEqualTo: value)
+            } else {
+                query = query.whereField(field.rawValue, isNotEqualTo: value)
+            }
             
         }
         query.getDocuments { snp, error in

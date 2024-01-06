@@ -28,7 +28,7 @@ final class MapBottomSheetVC: UIViewController {
     }
     
     private func setUI() {
-        view.backgroundColor = UIColor(named: "secondaryMainColor")
+        view.backgroundColor =  .secondaryMain
         
         container = MapBottomSheetContainerView(frame: .zero)
         view.addSubview(container)

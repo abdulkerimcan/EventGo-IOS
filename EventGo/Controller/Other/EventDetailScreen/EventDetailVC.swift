@@ -20,7 +20,6 @@ final class EventDetailVC: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: createEventDetailCompositionalLayout(viewModel: viewModel))
         return collectionView
     }()
-    
     private lazy var viewModel = EventDetailViewModel(event: event)
     
     private let event: Event
@@ -46,7 +45,13 @@ final class EventDetailVC: UIViewController {
 extension EventDetailVC: EventDetailVCDelegate {
     
     func configureVC() {
+        
+        tabBarController?.tabBar.isHidden = true
         view.backgroundColor = .secondaryMain
+        navigationItem.rightBarButtonItems = [
+            .init(title: "Buy", style: .plain, target: self, action: nil),
+            .init(image: .init(systemName: "bookmark"), style: .done, target: self, action: nil),
+            .init(image: .init(systemName: "square.and.arrow.up"), style: .done, target: self, action: nil)]
     }
     
     func configureCollectionView() {
@@ -61,6 +66,7 @@ extension EventDetailVC: EventDetailVCDelegate {
         collectionView.register(EventDetailLocationCollectionViewCell.self, forCellWithReuseIdentifier: EventDetailLocationCollectionViewCell.identifier)
         
         collectionView.register(EventDetailOrganizerCollectionViewCell.self, forCellWithReuseIdentifier: EventDetailOrganizerCollectionViewCell.identifier)
+        
         
         collectionView.snp.makeConstraints { make in
             make.left.top.bottom.right.equalToSuperview()

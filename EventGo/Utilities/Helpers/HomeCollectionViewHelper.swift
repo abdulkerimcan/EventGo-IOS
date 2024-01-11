@@ -16,8 +16,7 @@ extension UIViewController {
     }
     
     private func createHomeSection(viewModel: HomeViewModel, for sectionIndex: Int) -> NSCollectionLayoutSection {
-        let sectionTypes = viewModel.sections
-        let section = sectionTypes[sectionIndex]
+        let section = viewModel.eventList.value[sectionIndex].sectionName
         
         switch section {
         case .featured:

@@ -16,6 +16,14 @@
 		0A0907212AE0520900C09085 /* UIViewController+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0907202AE0520900C09085 /* UIViewController+Ext.swift */; };
 		0A0907232AE052C600C09085 /* EventCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0907222AE052C600C09085 /* EventCollectionViewCell.swift */; };
 		0A2C33DE2ADDE1CC00EC4E21 /* EventMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A2C33DD2ADDE1CC00EC4E21 /* EventMapViewModel.swift */; };
+		0A30B2352B49DEFB001F71FE /* RxBlocking in Frameworks */ = {isa = PBXBuildFile; productRef = 0A30B2342B49DEFB001F71FE /* RxBlocking */; };
+		0A30B2372B49DEFB001F71FE /* RxBlocking-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 0A30B2362B49DEFB001F71FE /* RxBlocking-Dynamic */; };
+		0A30B2392B49DEFB001F71FE /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 0A30B2382B49DEFB001F71FE /* RxCocoa */; };
+		0A30B23B2B49DEFB001F71FE /* RxCocoa-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 0A30B23A2B49DEFB001F71FE /* RxCocoa-Dynamic */; };
+		0A30B23D2B49DEFB001F71FE /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 0A30B23C2B49DEFB001F71FE /* RxRelay */; };
+		0A30B23F2B49DEFB001F71FE /* RxRelay-Dynamic in Frameworks */ = {isa = PBXBuildFile; productRef = 0A30B23E2B49DEFB001F71FE /* RxRelay-Dynamic */; };
+		0A30B2422B4A10D4001F71FE /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 0A30B2412B4A10D4001F71FE /* Differentiator */; };
+		0A30B2442B4A10D4001F71FE /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 0A30B2432B4A10D4001F71FE /* RxDataSources */; };
 		0A3692D12AD5589A008D2829 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3692D02AD5589A008D2829 /* HomeVC.swift */; };
 		0A3692D42AD58776008D2829 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3692D32AD58776008D2829 /* User.swift */; };
 		0A3692D62AD5A318008D2829 /* OnboardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A3692D52AD5A318008D2829 /* OnboardVC.swift */; };
@@ -205,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0AE5D01A2AD492A900CB8E43 /* FirebaseMessaging in Frameworks */,
+				0A30B23B2B49DEFB001F71FE /* RxCocoa-Dynamic in Frameworks */,
 				0ABFE2EF2AD2BD950092018E /* SnapKit in Frameworks */,
 				0AE5D00C2AD492A900CB8E43 /* FirebaseFirestoreSwift in Frameworks */,
 				0AE5CFF62AD492A900CB8E43 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
@@ -213,6 +222,7 @@
 				0AE5CFF02AD492A900CB8E43 /* FirebaseAnalytics in Frameworks */,
 				0AE5CFFC2AD492A900CB8E43 /* FirebaseAuth in Frameworks */,
 				0AE5D0062AD492A900CB8E43 /* FirebaseDynamicLinks in Frameworks */,
+				0A30B2372B49DEFB001F71FE /* RxBlocking-Dynamic in Frameworks */,
 				0AE5D0002AD492A900CB8E43 /* FirebaseCrashlytics in Frameworks */,
 				0AE5D0182AD492A900CB8E43 /* FirebaseMLModelDownloader in Frameworks */,
 				0AE5D0042AD492A900CB8E43 /* FirebaseDatabaseSwift in Frameworks */,
@@ -220,6 +230,7 @@
 				0AE5D0162AD492A900CB8E43 /* FirebaseInstallations in Frameworks */,
 				0AE5D0102AD492A900CB8E43 /* FirebaseFunctionsCombine-Community in Frameworks */,
 				0AE5D00A2AD492A900CB8E43 /* FirebaseFirestoreCombine-Community in Frameworks */,
+				0A30B23D2B49DEFB001F71FE /* RxRelay in Frameworks */,
 				0AE5D0022AD492A900CB8E43 /* FirebaseDatabase in Frameworks */,
 				0AE5D01C2AD492A900CB8E43 /* FirebasePerformance in Frameworks */,
 				0AE5CFF82AD492A900CB8E43 /* FirebaseAppCheck in Frameworks */,
@@ -227,12 +238,17 @@
 				0AC4F2052AD8AD5300502F08 /* iOSDropDown in Frameworks */,
 				0AE5D0142AD492A900CB8E43 /* FirebaseInAppMessagingSwift-Beta in Frameworks */,
 				0AE5D0202AD492A900CB8E43 /* FirebaseRemoteConfigSwift in Frameworks */,
+				0A30B2422B4A10D4001F71FE /* Differentiator in Frameworks */,
+				0A30B2442B4A10D4001F71FE /* RxDataSources in Frameworks */,
 				0AE5CFF42AD492A900CB8E43 /* FirebaseAnalyticsSwift in Frameworks */,
 				0AE5CFFA2AD492A900CB8E43 /* FirebaseAppDistribution-Beta in Frameworks */,
+				0A30B2392B49DEFB001F71FE /* RxCocoa in Frameworks */,
+				0A30B23F2B49DEFB001F71FE /* RxRelay-Dynamic in Frameworks */,
 				0AC4F2022AD8ACA500502F08 /* Kingfisher in Frameworks */,
 				0AE5D01E2AD492A900CB8E43 /* FirebaseRemoteConfig in Frameworks */,
 				0AE5D0222AD492A900CB8E43 /* FirebaseStorage in Frameworks */,
 				0AE5CFFE2AD492A900CB8E43 /* FirebaseAuthCombine-Community in Frameworks */,
+				0A30B2352B49DEFB001F71FE /* RxBlocking in Frameworks */,
 				0AE5D0242AD492A900CB8E43 /* FirebaseStorageCombine-Community in Frameworks */,
 				0AE5D0122AD492A900CB8E43 /* FirebaseInAppMessaging-Beta in Frameworks */,
 			);
@@ -662,6 +678,14 @@
 				0AE5D0232AD492A900CB8E43 /* FirebaseStorageCombine-Community */,
 				0AC4F2012AD8ACA500502F08 /* Kingfisher */,
 				0AC4F2042AD8AD5300502F08 /* iOSDropDown */,
+				0A30B2342B49DEFB001F71FE /* RxBlocking */,
+				0A30B2362B49DEFB001F71FE /* RxBlocking-Dynamic */,
+				0A30B2382B49DEFB001F71FE /* RxCocoa */,
+				0A30B23A2B49DEFB001F71FE /* RxCocoa-Dynamic */,
+				0A30B23C2B49DEFB001F71FE /* RxRelay */,
+				0A30B23E2B49DEFB001F71FE /* RxRelay-Dynamic */,
+				0A30B2412B4A10D4001F71FE /* Differentiator */,
+				0A30B2432B4A10D4001F71FE /* RxDataSources */,
 			);
 			productName = EventGo;
 			productReference = 0ABFE2D02AD2A7BB0092018E /* EventGo.app */;
@@ -696,6 +720,8 @@
 				0AE5CFEE2AD492A900CB8E43 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				0AC4F2002AD8ACA500502F08 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				0AC4F2032AD8AD5300502F08 /* XCRemoteSwiftPackageReference "iOSDropDown" */,
+				0A30B2332B49DEFB001F71FE /* XCRemoteSwiftPackageReference "RxSwift" */,
+				0A30B2402B4A10D4001F71FE /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			productRefGroup = 0ABFE2D12AD2A7BB0092018E /* Products */;
 			projectDirPath = "";
@@ -1020,6 +1046,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0A30B2332B49DEFB001F71FE /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.6.0;
+			};
+		};
+		0A30B2402B4A10D4001F71FE /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.2;
+			};
+		};
 		0ABFE2ED2AD2BD950092018E /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
@@ -1055,6 +1097,46 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0A30B2342B49DEFB001F71FE /* RxBlocking */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A30B2332B49DEFB001F71FE /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxBlocking;
+		};
+		0A30B2362B49DEFB001F71FE /* RxBlocking-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A30B2332B49DEFB001F71FE /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = "RxBlocking-Dynamic";
+		};
+		0A30B2382B49DEFB001F71FE /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A30B2332B49DEFB001F71FE /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		0A30B23A2B49DEFB001F71FE /* RxCocoa-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A30B2332B49DEFB001F71FE /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = "RxCocoa-Dynamic";
+		};
+		0A30B23C2B49DEFB001F71FE /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A30B2332B49DEFB001F71FE /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		0A30B23E2B49DEFB001F71FE /* RxRelay-Dynamic */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A30B2332B49DEFB001F71FE /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = "RxRelay-Dynamic";
+		};
+		0A30B2412B4A10D4001F71FE /* Differentiator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A30B2402B4A10D4001F71FE /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = Differentiator;
+		};
+		0A30B2432B4A10D4001F71FE /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0A30B2402B4A10D4001F71FE /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
+		};
 		0ABFE2EE2AD2BD950092018E /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 0ABFE2ED2AD2BD950092018E /* XCRemoteSwiftPackageReference "SnapKit" */;

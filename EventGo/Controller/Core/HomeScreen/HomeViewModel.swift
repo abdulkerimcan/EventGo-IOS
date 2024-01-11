@@ -6,6 +6,9 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
+import RxDataSources
 
 protocol HomeViewModelDelegate {
     var view: HomeVCDelegate? {get set}
@@ -16,57 +19,62 @@ protocol HomeViewModelDelegate {
 
 final class HomeViewModel {
     weak var view: HomeVCDelegate?
-    var sections: [EventSection] = [.featured,.concert,.sport,.theatr,.party,.newest]
-    var events: [Event] = []
-    var featuredEvents: [Event] = []
+    private let disposeBag   = DisposeBag()
+    var eventList = BehaviorRelay<[ZISectionWrapperModel]>(value: [])
 }
 
 extension HomeViewModel: HomeViewModelDelegate {
     func getEvent(indexPath: IndexPath) {
-        let section = sections[indexPath.section]
-        switch section {
-        case .featured:
-            view?.navigateToDetail(with: featuredEvents[indexPath.item])
-        case .newest:
-            view?.navigateToDetail(with: events[indexPath.item])
-        default:
-            view?.navigateToDetail(with: getFilteredEvents(eventType: section)[indexPath.item])
-        }
+        self.view?.navigateToDetail(with: eventList.value[indexPath.section].items[indexPath.item].data)
     }
     func fetchEvents() {
         
         NetworkManager.shared.getMultipleDatas(type: Event.self, whereField: EventFields.ownerId,isEqual: false, isEqualTo: UserConstants.user?.id, path: .posts) { result in
             switch result {
             case .success(let success):
-                self.events.append(contentsOf: success)
-                if self.events.count > 2 {
+                var newSection = self.eventList.value
+                var featuredEvents:[Event] = []
+                if success.count > 2 {
                     for i in 0...2 {
-                        self.featuredEvents.append(self.events[i])
+                        featuredEvents.append(success[i])
                     }
                 }
-                self.view?.reloadData()
+                let featuredItems = ZISectionWrapperModel(sectionName: .featured, items: ZISectionWrapperModel.convertItemOfAnyToZIWrapperItem(sectionName: .featured, objects: featuredEvents))
+                
+                let partyItems = ZISectionWrapperModel(sectionName: .party, items: ZISectionWrapperModel.convertItemOfAnyToZIWrapperItem(sectionName: .party, objects: success.filter{
+                    $0.type == .party
+                }))
+                
+                let concertItems = ZISectionWrapperModel(sectionName: .concert, items: ZISectionWrapperModel.convertItemOfAnyToZIWrapperItem(sectionName: .concert, objects: success.filter{
+                    $0.type == .concert
+                }))
+                
+                let sportItems = ZISectionWrapperModel(sectionName: .sport, items: ZISectionWrapperModel.convertItemOfAnyToZIWrapperItem(sectionName: .sport, objects: success.filter{
+                    $0.type == .sport
+                }))
+                
+                let theatrItems = ZISectionWrapperModel(sectionName: .theatr, items: ZISectionWrapperModel.convertItemOfAnyToZIWrapperItem(sectionName: .theatr, objects: success.filter{
+                    $0.type == .theatr
+                }))
+                
+                newSection += [featuredItems]
+                newSection += [concertItems]
+                newSection += [partyItems]
+                newSection += [theatrItems]
+                newSection += [sportItems]
+                
+                self.eventList.accept(newSection)
             case .failure(let failure):
                 print(failure.localizedDescription)
+                self.eventList.accept([])
             }
         }
     }
     
     func viewDidLoad() {
-        view?.configureVC()
-        view?.configureCollectionView()
         fetchEvents()
-    }
-    
-    func getFilteredEvents(eventType: EventSection) -> [Event] {
-        let filteredEvents = events.filter { event in
-            
-            if event.type.rawValue.elementsEqual(eventType.rawValue) {
-                return true
-            }
-            return false
-        }
-        
-        return filteredEvents
+        view?.configureVC()
+        view?.bindCollectionView()
     }
 }
 

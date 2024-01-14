@@ -20,12 +20,13 @@ protocol HomeViewModelDelegate {
 final class HomeViewModel {
     weak var view: HomeVCDelegate?
     private let disposeBag   = DisposeBag()
-    var eventList = BehaviorRelay<[ZISectionWrapperModel]>(value: [])
+    var eventList = BehaviorRelay<[EventSectionModel]>(value: [])
 }
 
 extension HomeViewModel: HomeViewModelDelegate {
     func getEvent(indexPath: IndexPath) {
-        self.view?.navigateToDetail(with: eventList.value[indexPath.section].items[indexPath.item].data)
+        let event = eventList.value[indexPath.section].items[indexPath.item]
+        self.view?.navigateToDetail(with: event)
     }
     func fetchEvents() {
         
@@ -39,29 +40,29 @@ extension HomeViewModel: HomeViewModelDelegate {
                         featuredEvents.append(success[i])
                     }
                 }
-                let featuredItems = ZISectionWrapperModel(sectionName: .featured, items: ZISectionWrapperModel.convertItemOfAnyToZIWrapperItem(sectionName: .featured, objects: featuredEvents))
+                let featuredItems = EventSectionModel(items: featuredEvents, sectionName: .featured)
                 
-                let partyItems = ZISectionWrapperModel(sectionName: .party, items: ZISectionWrapperModel.convertItemOfAnyToZIWrapperItem(sectionName: .party, objects: success.filter{
+                let partyItems = EventSectionModel(items: success.filter{
                     $0.type == .party
-                }))
+                }, sectionName: .party)
                 
-                let concertItems = ZISectionWrapperModel(sectionName: .concert, items: ZISectionWrapperModel.convertItemOfAnyToZIWrapperItem(sectionName: .concert, objects: success.filter{
+                let concertItems = EventSectionModel(items: success.filter{
                     $0.type == .concert
-                }))
+                }, sectionName: .concert)
                 
-                let sportItems = ZISectionWrapperModel(sectionName: .sport, items: ZISectionWrapperModel.convertItemOfAnyToZIWrapperItem(sectionName: .sport, objects: success.filter{
+                let sportItems = EventSectionModel(items: success.filter{
                     $0.type == .sport
-                }))
+                }, sectionName: .sport)
                 
-                let theatrItems = ZISectionWrapperModel(sectionName: .theatr, items: ZISectionWrapperModel.convertItemOfAnyToZIWrapperItem(sectionName: .theatr, objects: success.filter{
+                let theatrItems = EventSectionModel(items: success.filter{
                     $0.type == .theatr
-                }))
+                }, sectionName: .theatr)
                 
-                newSection += [featuredItems]
-                newSection += [concertItems]
-                newSection += [partyItems]
-                newSection += [theatrItems]
-                newSection += [sportItems]
+                newSection.append(featuredItems)
+                newSection.append(partyItems)
+                newSection.append(concertItems)
+                newSection.append(theatrItems)
+                newSection.append(sportItems)
                 
                 self.eventList.accept(newSection)
             case .failure(let failure):

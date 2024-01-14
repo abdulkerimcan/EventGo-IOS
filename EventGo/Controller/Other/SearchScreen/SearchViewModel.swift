@@ -6,29 +6,38 @@
 //
 
 import Foundation
+import RxSwift
+import RxRelay
 
 protocol SearchViewModelDelegate {
     var view: SearchVCDelegate? {get set}
     func viewDidLoad()
-    func search(searchText: String?,events: [Event])
+    func getEvent(indexPath: IndexPath)
+    func search(searchText: String?,events: [EventSectionModel])
 }
 
 final class SearchViewModel {
-    
-    lazy var events: [Event] = []
+    var eventList = BehaviorRelay<[Event]>(value: [])
     weak var view: SearchVCDelegate?
 }
 
 extension SearchViewModel: SearchViewModelDelegate {
+    func getEvent(indexPath: IndexPath) {
+        let event = eventList.value[indexPath.item]
+        self.view?.navigateToDetail(with: event)
+    }
     
-    func search(searchText: String?,events: [Event]) {
+    func search(searchText: String?,events: [EventSectionModel]) {
         guard let searchText else {
             view?.reloadData()
             return
         }
-        self.events = events.filter({ event in
-            event.name.lowercased().contains(searchText.lowercased())
-        })
+        let allEvents = events.flatMap {
+            $0.items
+        }.filter {
+            $0.name.lowercased().contains(searchText.lowercased())
+        }
+        eventList.accept(allEvents)
         view?.reloadData()
     }
     

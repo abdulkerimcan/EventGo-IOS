@@ -26,9 +26,13 @@ final class HomeVC: UIViewController, UICollectionViewDelegateFlowLayout {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         viewModel.view = self
         viewModel.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
     }
     
      func bindCollectionView() {
@@ -45,55 +49,47 @@ final class HomeVC: UIViewController, UICollectionViewDelegateFlowLayout {
          collectionView.register(HomeScreenEventCollectionViewCell.self, forCellWithReuseIdentifier: HomeScreenEventCollectionViewCell.identifier)
          collectionView.register(HeaderCollectionReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier)
          
-         let dataSource = datasourcesAnimated()
+
+         let dataSource = RxCollectionViewSectionedReloadDataSource<EventSectionModel> { dataSource, collectionView, indexPath, item in
+             let section = self.viewModel.eventList.value[indexPath.section].sectionName
+             
+             switch section {
+             case .featured:
+                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedCollectionViewCell.identifier, for: indexPath)
+                        as? FeaturedCollectionViewCell else {
+                     fatalError()
+                 }
+                 
+                 cell.configureCell(event: item)
+                 
+                 return cell
+                 
+             default:
+                 
+                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeScreenEventCollectionViewCell.identifier, for: indexPath)
+                        as? HomeScreenEventCollectionViewCell else {
+                     fatalError()
+                 }
+                 cell.configureCell(event: item)
+                 return cell
+             }
+         } configureSupplementaryView: { dataSource, collectionView, title, indexPath in
+             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier, for: indexPath) as? HeaderCollectionReusableView else {
+                                 fatalError()
+                             }
+                             let title = self.viewModel.eventList.value[indexPath.section].sectionName.rawValue
+                             header.setTitle(title: title)
+                             return header
+         }
          
          viewModel
              .eventList
              .bind(to: collectionView.rx.items(dataSource: dataSource)).disposed(by: disposeBag)
          
-         collectionView.rx.itemSelected.bind { index in
-             let abc = self.viewModel.eventList.value[index.section]
-             self.viewModel.getEvent(indexPath: index)
-             print(abc.items[index.item].data.name)
+         collectionView.rx.itemSelected.bind { indexPath in
+             self.viewModel.getEvent(indexPath: indexPath)
          }
     }
-    
-    private func datasourcesAnimated() -> RxCollectionViewSectionedAnimatedDataSource<ZISectionWrapperModel> {
-        
-            return RxCollectionViewSectionedAnimatedDataSource<ZISectionWrapperModel>(configureCell: {
-                datasource,collectionView,indexPath,item in
-                let sectionDisplaying = self.viewModel.eventList.value[indexPath.section].sectionName
-                switch sectionDisplaying {
-                case .featured:
-                    
-                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeaturedCollectionViewCell.identifier, for: indexPath)
-                           as? FeaturedCollectionViewCell else {
-                        fatalError()
-                    }
-                    
-                    cell.configureCell(event: item.data)
-                    
-                    return cell
-                    
-                default:
-                    
-                    guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeScreenEventCollectionViewCell.identifier, for: indexPath)
-                           as? HomeScreenEventCollectionViewCell else {
-                        fatalError()
-                    }
-                    cell.configureCell(event: item.data)
-                    return cell
-                    
-                }
-            }){ dataSource, collectionView, title, indexPath in
-                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HeaderCollectionReusableView.identifier, for: indexPath) as? HeaderCollectionReusableView else {
-                    fatalError()
-                }
-                let title = self.viewModel.eventList.value[indexPath.section].sectionName.rawValue
-                header.setTitle(title: title)
-                return header
-            }
-        }
 }
 
 extension HomeVC: HomeVCDelegate {
@@ -134,8 +130,17 @@ extension HomeVC: UISearchResultsUpdating {
         guard let vc = searchController.searchResultsController as? SearchVC else {
             return
         }
-        //Search with RX need to add
-        //vc.viewModel.search(searchText: searchController.searchBar.text, events: viewModel.events)
+        
+        searchController
+            .searchBar
+            .rx
+            .text
+            .orEmpty
+            .debounce(.milliseconds(500),
+                      scheduler: MainScheduler.instance)
+            .subscribe { query in
+                vc.viewModel.search(searchText: query, events: self.viewModel.eventList.value)
+            }.disposed(by: disposeBag)
     }
 }
 

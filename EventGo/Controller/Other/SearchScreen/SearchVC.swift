@@ -51,11 +51,11 @@ extension SearchVC: SearchVCDelegate {
         viewModel.eventList.bind(to: collectionView.rx.items(cellIdentifier: EventCollectionViewCell.identifier, cellType: EventCollectionViewCell.self)) {
             index, event, cell in
             cell.configureCell(with: event)
-        }
+        }.disposed(by: disposeBag)
         
         collectionView.rx.itemSelected.bind { indexPath in
             self.viewModel.getEvent(indexPath: indexPath)
-        }
+        }.disposed(by: disposeBag)
         
     }
     func reloadData() {

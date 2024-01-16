@@ -6,22 +6,27 @@
 //
 
 import Foundation
-
+import RxRelay
 
 protocol CalendarViewModelDelegate {
     var view: CalendarVCDelegate? {get set}
     func viewDidLoad()
     func fetchEvents(date: Date)
-    func formatDate(date: Date) ->String
+    func formatDate(date: Date) -> String
+    func getEvent(indexPath: IndexPath)
 }
 
 final class CalendarViewModel {
-    
+    let eventList = BehaviorRelay<[Event]>(value: [])
     weak var view: CalendarVCDelegate?
-    var events: [Event] = []
 }
 
 extension CalendarViewModel: CalendarViewModelDelegate {
+    
+    func getEvent(indexPath: IndexPath) {
+        let event = eventList.value[indexPath.item]
+        self.view?.navigateToDetail(with: event)
+    }
     
     func formatDate(date: Date) -> String {
         let dateFormatter = DateFormatter()
@@ -33,11 +38,10 @@ extension CalendarViewModel: CalendarViewModelDelegate {
     func fetchEvents(date: Date) {
         
         let dateString = formatDate(date: date)
-        events.removeAll(keepingCapacity: false)
         NetworkManager.shared.getMultipleDatas(type: Event.self,whereField: EventFields.date,isEqualTo: dateString,path: .posts) { result in
             switch result {
             case .success(let success):
-                self.events.append(contentsOf: success)
+                self.eventList.accept(success)
                 self.view?.reloadDate()
             case .failure(let failure):
                 print(failure.localizedDescription)
@@ -49,7 +53,7 @@ extension CalendarViewModel: CalendarViewModelDelegate {
     func viewDidLoad() {
         view?.configureVC()
         view?.configureDatePicker()
-        view?.configureCollectionView()
+        view?.bindCollectionView()
         fetchEvents(date: .now)
     }
 }

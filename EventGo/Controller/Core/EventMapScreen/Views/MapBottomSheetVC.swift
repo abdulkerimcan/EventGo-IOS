@@ -10,7 +10,7 @@ import SnapKit
 
 final class MapBottomSheetVC: UIViewController {
     
-    private var container: MapBottomSheetContainerView!
+    private lazy var container = MapBottomSheetContainerView(frame: .zero)
     
     private var event: Event
     
@@ -26,11 +26,15 @@ final class MapBottomSheetVC: UIViewController {
         super.viewDidLoad()
         setUI()
     }
+    @objc private func didTapContainer() {
+        navigateToDetail(with: event)
+    }
     
     private func setUI() {
         view.backgroundColor =  .secondaryMain
-        
-        container = MapBottomSheetContainerView(frame: .zero)
+        container.isUserInteractionEnabled = true
+        let gesture = UITapGestureRecognizer(target: self, action: #selector(didTapContainer))
+        container.addGestureRecognizer(gesture)
         view.addSubview(container)
         
         container.snp.makeConstraints { make in
@@ -39,10 +43,13 @@ final class MapBottomSheetVC: UIViewController {
             make.top.equalToSuperview().offset(40)
             make.bottom.equalToSuperview().offset(-60)
         }
-        configure()
-    }
-    
-    func configure() {
         container.configure(with: event)
+    }
+    private func navigateToDetail(with event : Event) {
+        DispatchQueue.main.async {
+            let vc = EventDetailVC(event: event)
+            self.present(vc, animated: true)
+            
+        }
     }
 }

@@ -7,10 +7,13 @@
 
 import UIKit
 import SnapKit
+import RxSwift
+import RxCocoa
 
 protocol EventListVCDelegate: AnyObject {
     func configureVC()
-    func configureCollectionView()
+    func bindCollectionView()
+    func navigateToDetail(with: Event)
     func reloadData()
 }
 
@@ -20,10 +23,17 @@ final class EventListVC: UIViewController {
     
     private lazy var viewModel = EventListViewModel()
     
+    private let disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.view = self
         viewModel.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = false
     }
     
     @objc private func navigateToCreateEvent() {
@@ -35,21 +45,39 @@ final class EventListVC: UIViewController {
 }
 
 extension EventListVC: EventListVCDelegate {
-    func reloadData() {
+    func navigateToDetail(with event: Event) {
         DispatchQueue.main.async {
-            self.collectionView.reloadData()
+            let vc = EventDetailVC(event: event)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     
-    func configureCollectionView() {
+    func bindCollectionView() {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints { make in
             make.left.right.top.bottom.equalToSuperview()
         }
-        collectionView.delegate = self
-        collectionView.dataSource = self
         collectionView.register(EventCollectionViewCell.self,
                                 forCellWithReuseIdentifier: EventCollectionViewCell.identifier)
+        
+        viewModel
+            .eventList
+            .bind(to: collectionView.rx.items(cellIdentifier: EventCollectionViewCell.identifier
+                                              , cellType: EventCollectionViewCell.self)) {
+                index, event, cell in
+                cell.configureCell(with: event)
+        }
+        .disposed(by: disposeBag)
+        
+        collectionView.rx.itemSelected.bind { indexPath in
+            self.viewModel.getEvent(indexPath: indexPath)
+        }.disposed(by: disposeBag)
+    }
+    
+    func reloadData() {
+        DispatchQueue.main.async {
+            self.collectionView.reloadData()
+        }
     }
     
     func configureVC() {
@@ -58,21 +86,5 @@ extension EventListVC: EventListVCDelegate {
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Create Event",
                                                             style: .done, target: self,
                                                             action: #selector(navigateToCreateEvent))
-    }
-}
-
-extension EventListVC: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        viewModel.events.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: EventCollectionViewCell.identifier, for: indexPath) as? EventCollectionViewCell else {
-            fatalError()
-        }
-        
-        cell.configureCell(with: viewModel.events[indexPath.item])
-        
-        return cell
     }
 }

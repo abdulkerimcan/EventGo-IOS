@@ -88,7 +88,7 @@ final class HomeVC: UIViewController, UICollectionViewDelegateFlowLayout {
          
          collectionView.rx.itemSelected.bind { indexPath in
              self.viewModel.getEvent(indexPath: indexPath)
-         }
+         }.disposed(by: disposeBag)
     }
 }
 

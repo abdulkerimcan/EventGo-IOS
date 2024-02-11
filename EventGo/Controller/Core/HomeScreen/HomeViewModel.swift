@@ -58,11 +58,25 @@ extension HomeViewModel: HomeViewModelDelegate {
                     $0.type == .theatr
                 }, sectionName: .theatr)
                 
-                newSection.append(featuredItems)
-                newSection.append(partyItems)
-                newSection.append(concertItems)
-                newSection.append(theatrItems)
-                newSection.append(sportItems)
+                if !featuredItems.items.isEmpty {
+                    newSection.append(featuredItems)
+                }
+                
+                if !partyItems.items.isEmpty {
+                    newSection.append(partyItems)
+                }
+                
+                if !concertItems.items.isEmpty {
+                    newSection.append(concertItems)
+                }
+                
+                if !theatrItems.items.isEmpty {
+                    newSection.append(theatrItems)
+                }
+                
+                if !sportItems.items.isEmpty {
+                    newSection.append(sportItems)
+                }
                 
                 self.eventList.accept(newSection)
             case .failure(let failure):

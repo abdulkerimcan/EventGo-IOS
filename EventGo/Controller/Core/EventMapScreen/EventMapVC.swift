@@ -37,7 +37,7 @@ extension EventMapVC: EventMapVCDelegate {
     
     func configureBottomSheet(with event: Event) {
         let vc = MapBottomSheetVC(event: event)
-        
+        vc.delegate = self
         let nav = UINavigationController(rootViewController: vc)
         
         if let sheet = nav.sheetPresentationController {
@@ -139,5 +139,46 @@ extension EventMapVC: MKMapViewDelegate {
         }
         configureBottomSheet(with: annotation.event)
     }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let render = MKPolylineRenderer(overlay: overlay as! MKPolyline)
+        render.strokeColor = .main
+        return render
+    }
 }
 
+extension EventMapVC: GetDirectionDelegate {
+    func getDirection(coordinate destinationCoordinate: CLLocationCoordinate2D) {
+        guard let sourceCoordinate = locationManager?.location?.coordinate else {
+            return
+        }
+        
+        let sourcePlaceMark = MKPlacemark(coordinate: sourceCoordinate)
+        let destinationPlaceMark = MKPlacemark(coordinate: destinationCoordinate)
+        
+        let sourceItem = MKMapItem(placemark: sourcePlaceMark)
+        let destinationItem = MKMapItem(placemark: destinationPlaceMark)
+        
+        let destinationRequest = MKDirections.Request()
+        destinationRequest.source = sourceItem
+        destinationRequest.destination = destinationItem
+        destinationRequest.transportType = .walking
+        destinationRequest.requestsAlternateRoutes = true
+        
+        let direction = MKDirections(request: destinationRequest)
+        
+        direction.calculate { response, error in
+            if  error != nil {
+                return
+            }
+            guard let response = response else {
+                return
+            }
+            
+            for route in response.routes {
+                self.mapview.addOverlay(route.polyline)
+                self.mapview.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+            }
+        }
+    }
+}

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SnapKit
 
 final class CustomButton: UIButton {
     
@@ -20,9 +21,11 @@ final class CustomButton: UIButton {
         setTitle(title, for: .normal)
         layer.cornerRadius = 20
         layer.masksToBounds = true
-        
         backgroundColor = hasBackground ? UIColor(named: "mainColor") : .clear
-        
+        titleLabel?.snp.makeConstraints({ make in
+            make.left.equalToSuperview().offset(5)
+            make.right.equalToSuperview().offset(-5)
+        })
         let titleColor: UIColor? = hasBackground ? .white : UIColor(named: "mainColor")
         setTitleColor(titleColor, for: .normal)
         

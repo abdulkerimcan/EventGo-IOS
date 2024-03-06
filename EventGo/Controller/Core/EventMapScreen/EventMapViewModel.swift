@@ -29,10 +29,10 @@ final class EventMapViewModel: NSObject {
 
 extension EventMapViewModel: EventMapViewModelDelegate {
     func selectEvent(with event: Event) {
-            self.view?.presentBottomSheet(with: event, distance: 0)
+        self.view?.presentBottomSheet(with: event)
     }
     
-        
+    
     func fetchEvents() {
         NetworkManager.shared.getMultipleDatas(type: Event.self, path: .posts) { result in
             switch result {

@@ -13,7 +13,7 @@ import Kingfisher
 protocol EventMapVCDelegate: AnyObject {
     func configureMapView()
     func configureEventAnnotations(events: [Event])
-    func presentBottomSheet(with event: Event,distance: Double)
+    func presentBottomSheet(with event: Event)
     func showUserLocation(region: MKCoordinateRegion)
     func doNotShowUserLocation()
     func configureDistance(_ overlay: MKOverlay)
@@ -50,7 +50,7 @@ extension EventMapVC: EventMapVCDelegate {
         mapview.setRegion(region, animated: true)
     }
     
-    func presentBottomSheet(with event: Event,distance: Double) {
+    func presentBottomSheet(with event: Event) {
         let vc = MapBottomSheetVC(event: event)
         vc.delegate = self
         let nav = UINavigationController(rootViewController: vc)

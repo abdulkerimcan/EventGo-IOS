@@ -11,14 +11,14 @@ import Kingfisher
 
 final class MapBottomSheetContainerView: UIView {
     
-    private let imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()
     
-    private let dateLabel: UILabel = {
+    private lazy var dateLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .tertiarySystemBackground
         label.font = .systemFont(ofSize: 14, weight: .bold)
@@ -27,13 +27,13 @@ final class MapBottomSheetContainerView: UIView {
         return label
     }()
     
-    private let eventNameLabel: UILabel = {
+    private lazy var eventNameLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 16, weight: .bold)
         return label
     }()
     
-    private let eventTypeLabel: UILabel = {
+    private lazy var eventTypeLabel: UILabel = {
         let label = UILabel()
         label.layer.borderWidth = 1
         label.layer.borderColor = UIColor(named: "mainColor")?.cgColor
@@ -43,19 +43,20 @@ final class MapBottomSheetContainerView: UIView {
         return label
     }()
     
-    private let locationImageView: UIImageView = {
+    private lazy var locationImageView: UIImageView = {
         let image = UIImageView()
         image.image = UIImage(systemName: "mappin.and.ellipse.circle.fill")
         image.tintColor = UIColor(named: "mainColor")
         return image
     }()
     
-    private let locationLabel: UILabel = {
+    private lazy var locationLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 12, weight: .semibold)
-        label.text = "Antalya, Türkiye"
         return label
     }()
+    
+    private lazy var getDirectionBtn = CustomButton(title: "Get Direction", hasBackground: true, fontSize: .small)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -64,6 +65,10 @@ final class MapBottomSheetContainerView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func addTargetToGetDirectionButton(target: Any?, action: Selector, for event: UIControl.Event) {
+        getDirectionBtn.addTarget(target, action: action, for: event)
     }
     
     private func setUI() {
@@ -77,6 +82,7 @@ final class MapBottomSheetContainerView: UIView {
                     eventTypeLabel,
                     locationLabel,
                     locationImageView,
+                    getDirectionBtn,
                     dateLabel)
         imageView.addSubview(dateLabel)
         
@@ -98,6 +104,11 @@ final class MapBottomSheetContainerView: UIView {
         eventTypeLabel.snp.makeConstraints { make in
             make.left.equalTo(eventNameLabel)
             make.centerY.equalToSuperview()
+        }
+        
+        getDirectionBtn.snp.makeConstraints { make in
+            make.left.equalTo(eventTypeLabel.snp.right).offset(10)
+            make.top.bottom.equalTo(eventTypeLabel)
         }
         
         locationImageView.snp.makeConstraints { make in

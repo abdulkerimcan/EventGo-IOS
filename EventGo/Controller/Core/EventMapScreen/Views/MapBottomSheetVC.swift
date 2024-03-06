@@ -7,11 +7,16 @@
 
 import UIKit
 import SnapKit
+import MapKit
+
+protocol GetDirectionDelegate: AnyObject {
+    func getDirection(coordinate: CLLocationCoordinate2D)
+}
 
 final class MapBottomSheetVC: UIViewController {
     
     private lazy var container = MapBottomSheetContainerView(frame: .zero)
-    
+    weak var delegate: GetDirectionDelegate?
     private var event: Event
     
     init(event: Event) {
@@ -22,9 +27,12 @@ final class MapBottomSheetVC: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
+        container.addTargetToGetDirectionButton(target: self, action: #selector(didTapGetDirectionBtn), for: .touchUpInside)
+        
     }
     @objc private func didTapContainer() {
         navigateToDetail(with: event)
@@ -45,11 +53,19 @@ final class MapBottomSheetVC: UIViewController {
         }
         container.configure(with: event)
     }
+    
     private func navigateToDetail(with event : Event) {
         DispatchQueue.main.async {
             let vc = EventDetailVC(event: event)
             self.present(vc, animated: true)
             
+        }
+    }
+    
+    @objc private func didTapGetDirectionBtn() {
+        dismiss(animated: true) {
+            let coordinate = CLLocationCoordinate2D(latitude: self.event.latitude, longitude: self.event.longitude)
+            self.delegate?.getDirection(coordinate: coordinate)
         }
     }
 }

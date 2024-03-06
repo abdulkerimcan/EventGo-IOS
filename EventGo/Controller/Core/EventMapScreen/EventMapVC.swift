@@ -13,7 +13,10 @@ import Kingfisher
 protocol EventMapVCDelegate: AnyObject {
     func configureMapView()
     func configureEventAnnotations(events: [Event])
-    func configureBottomSheet(with event: Event)
+    func presentBottomSheet(with event: Event)
+    func showUserLocation(region: MKCoordinateRegion)
+    func doNotShowUserLocation()
+    func configureDistance(_ overlay: MKOverlay)
 }
 
 final class EventMapVC: UIViewController {
@@ -34,10 +37,22 @@ final class EventMapVC: UIViewController {
 }
 
 extension EventMapVC: EventMapVCDelegate {
+    func configureDistance(_ overlay: MKOverlay) {
+        self.mapview.addOverlay(overlay)
+        self.mapview.setVisibleMapRect(overlay.boundingMapRect, animated: true)
+    }
     
-    func configureBottomSheet(with event: Event) {
+    func doNotShowUserLocation() {
+        mapview.showsUserLocation = false
+    }
+    
+    func showUserLocation(region: MKCoordinateRegion) {
+        mapview.setRegion(region, animated: true)
+    }
+    
+    func presentBottomSheet(with event: Event) {
         let vc = MapBottomSheetVC(event: event)
-        
+        vc.delegate = self
         let nav = UINavigationController(rootViewController: vc)
         
         if let sheet = nav.sheetPresentationController {
@@ -55,7 +70,6 @@ extension EventMapVC: EventMapVCDelegate {
             let pin = CustomAnnotationPin(event: event, coordinate: eventCoordinate)
             mapview.addAnnotation(pin)
         }
-        
     }
     
     func configureMapView() {
@@ -65,40 +79,9 @@ extension EventMapVC: EventMapVCDelegate {
             make.left.right.bottom.top.equalToSuperview()
         }
         mapview.delegate = self
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.requestWhenInUseAuthorization()
     }
 }
 
-extension EventMapVC: CLLocationManagerDelegate {
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        guard let locationManager = locationManager,
-              let location = locationManager.location else {
-            return
-        }
-        
-        switch locationManager.authorizationStatus {
-        case .notDetermined,.restricted:
-            print("location cannot be determined or restricted")
-            mapview.showsUserLocation = false
-        case .denied:
-            print("location permission has been denied")
-            mapview.showsUserLocation = false
-        case .authorizedWhenInUse,.authorizedAlways:
-            let region = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: 5000, longitudinalMeters: 5000)
-            mapview.setRegion(region, animated: true)
-            mapview.showsUserLocation = true
-        @unknown default:
-            print("Unknown error")
-            mapview.showsUserLocation = false
-        }
-    }
-    
-    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error.localizedDescription)
-    }
-}
 
 extension EventMapVC: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -137,7 +120,21 @@ extension EventMapVC: MKMapViewDelegate {
         guard let annotation = view.annotation as? CustomAnnotationPin else {
             return
         }
-        configureBottomSheet(with: annotation.event)
+        viewModel.selectEvent(with: annotation.event)
+    }
+    
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        let render = MKPolylineRenderer(overlay: overlay as! MKPolyline)
+        render.strokeColor = .main
+        return render
     }
 }
 
+extension EventMapVC: GetDirectionDelegate {
+    func getDirection(coordinate destinationCoordinate: CLLocationCoordinate2D) {
+        if !mapview.overlays.isEmpty {
+            mapview.removeOverlays(mapview.overlays)
+        }
+        viewModel.getDirection(coordinate: destinationCoordinate)
+    }
+}
